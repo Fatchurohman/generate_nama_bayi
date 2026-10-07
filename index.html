@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kumpulan Nama Baik - Glorious Gold Edition</title>
+  <style>
+    :root {
+      --bg-cream: #FFFDF9;
+      --gold-primary: #D4AF37;
+      --gold-dark: #AA7C11;
+      --gold-light: #F3E5AB;
+      --gold-gradient: linear-gradient(135deg, #FFE89C 0%, #D4AF37 50%, #996515 100%);
+      --gold-soft-bg: rgba(212, 175, 55, 0.08);
+      --text-main: #332C1E;
+      --text-muted: #7A6E5A;
+      --card-bg: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      padding: 20px;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.15), transparent 70%);
+    }
+
+    .header-container {
+      max-width: 900px;
+      margin: 0 auto 30px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 15px;
+    }
+
+    .app-title h1 {
+      font-size: 24px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .app-title p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .developer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold-dark);
+    }
+
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+      }
+    }
+
+    .main-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .filter-card {
+      background: var(--card-bg);
+      border: 1px solid var(--gold-primary);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.12);
+      margin-bottom: 25px;
+    }
+
+    .filter-group {
+      margin-bottom: 18px;
+    }
+
+    .filter-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--gold-dark);
+      font-size: 14px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--gold-light);
+      border-radius: 6px;
+      background-color: #FFFDF9;
+      color: var(--text-main);
+      outline: none;
+      font-size: 14px;
+    }
+
+    select:focus, input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 5px rgba(212, 175, 55, 0.4);
+    }
+
+    .lang-position-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-gold {
+      background: var(--gold-gradient);
+      color: #FFFFFF;
+      box-shadow: 0 3px 10px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-gold:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--gold-primary);
+      color: var(--gold-dark);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold-soft-bg);
+    }
+
+    .results-info {
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .name-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .name-card {
+      background: var(--card-bg);
+      border: 1px solid var(--gold-light);
+      border-radius: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .name-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gold-gradient);
+    }
+
+    .name-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold-primary);
+      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.2);
+    }
+
+    .name-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 6px;
+    }
+
+    .name-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      color: var(--gold-dark);
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--gold-light);
+      padding-bottom: 10px;
+    }
+
+    .word-breakdown {
+      margin-bottom: 15px;
+    }
+
+    .word-item {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .word-item strong {
+      color: var(--gold-dark);
+    }
+
+    .full-meaning {
+      background: var(--gold-soft-bg);
+      padding: 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--gold-primary);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    /* Print Area Styling */
+    @media print {
+      body {
+        background: #FFFFFF;
+        color: #000000;
+        padding: 0;
+      }
+      .filter-card, .action-buttons, .developer-badge, .modal-overlay {
+        display: none !important;
+      }
+      .header-container {
+        border-bottom: 1px solid #000;
+        margin-bottom: 20px;
+      }
+      .name-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .name-card {
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-container">
+    <div class="app-title">
+      <h1>Kumpulan Nama Baik</h1>
+      <p>Pilihan Nama Berkah & Indah untuk Sang Buah Hati</p>
+    </div>
+    <div class="developer-badge">
+      <span class="live-dot"></span>
+      <span>developer : fatur62</span>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="filter-card">
+      <div class="filter-group">
+        <label for="wordCount">1. Jumlah Kata (1 - 4 Kata)</label>
+        <select id="wordCount" onchange="renderLanguageFilters()">
+          <option value="1">1 Kata</option>
+          <option value="2" selected>2 Kata</option>
+          <option value="3">3 Kata</option>
+          <option value="4">4 Kata</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>2. Kombinasi Bahasa per Posisi Kata</label>
+        <div id="languageFilters" class="lang-position-grid"></div>
+      </div>
+
+      <div class="filter-group">
+        <label for="limitCount">3. Maksimal Alternatif Ditampilkan (Maks. 1000)</label>
+        <input type="number" id="limitCount" min="1" max="1000" value="50">
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-gold" onclick="applyFilters()">Tampilkan Nama</button>
+        <button class="btn btn-outline" onclick="window.print()">Cetak / Simpan PDF</button>
+      </div>
+    </div>
+
+    <div class="results-info">
+      <span id="resultCountText">Menampilkan 0 alternatif nama</span>
+    </div>
+
+    <div id="nameGrid" class="name-grid"></div>
+  </div>
+
+  <!-- Modal Detail Makna -->
+  <div id="detailModal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <div class="modal-title" id="modalName">Nama Lengkap</div>
+      <div class="word-breakdown" id="modalBreakdown"></div>
+      <div class="full-meaning" id="modalMeaning">Makna dan Doa...</div>
+    </div>
+  </div>
+
+  <script>
+    // Data dummy tersurasi (Dapat diperluas hingga 1000+ data dalam format JSON)
+    const rawNamesData = [
+      {
+        id: 1,
+        fullName: "Muhammad Rayyan",
+        wordsCount: 2,
+        words: [
+          { text: "Muhammad", lang: "Arab", meaning: "Yang terpuji" },
+          { text: "Rayyan", lang: "Arab", meaning: "Pintu surga bagi orang berpuasa" }
+        ],
+        fullMeaning: "Anak laki-laki yang terpuji dan kelak menjadi penghuni pintu surga Rayyan."
+      },
+      {
+        id: 2,
+        fullName: "Alexander Faris",
+        wordsCount: 2,
+        words: [
+          { text: "Alexander", lang: "Yunani", meaning: "Pelindung manusia" },
+          { text: "Faris", lang: "Arab", meaning: "Ksatria, pandai" }
+        ],
+        fullMeaning: "Ksatria cerdas yang senantiasa melindungi dan membawa kebaikan bagi sesama."
+      },
+      {
+        id: 3,
+        fullName: "Matteo Hasan Kirana",
+        wordsCount: 3,
+        words: [
+          { text: "Matteo", lang: "Italia", meaning: "Hadiah dari Tuhan" },
+          { text: "Hasan", lang: "Arab", meaning: "Baik, tampan" },
+          { text: "Kirana", lang: "Indonesia", meaning: "Sinar keindahan" }
+        ],
+        fullMeaning: "Hadiah terbaik dari Tuhan yang berparas tampan, berakhlak baik, dan memancarkan sinar keindahan."
+      },
+      {
+        id: 4,
+        fullName: "Arthur Zayn",
+        wordsCount: 2,
+        words: [
+          { text: "Arthur", lang: "Inggris", meaning: "Bangsawan yang kuat" },
+          { text: "Zayn", lang: "Arab", meaning: "Perhiasan, ketampanan" }
+        ],
+        fullMeaning: "Anak berjiwa bangsawan kuat yang menjadi perhiasan indah bagi keluarganya."
+      },
+      {
+        id: 5,
+        fullName: "Callysta Amara Nur Rahmah",
+        wordsCount: 4,
+        words: [
+          { text: "Callysta", lang: "Yunani", meaning: "Sangat cantik" },
+          { text: "Amara", lang: "Italia", meaning: "Abadi, anggun" },
+          { text: "Nur", lang: "Arab", meaning: "Cahaya" },
+          { text: "Rahmah", lang: "Arab", meaning: "Kasih sayang" }
+        ],
+        fullMeaning: "Wanita cantik dan anggun yang memancarkan cahaya kasih sayang yang abadi."
+      }
+    ];
+
+    const availableLanguages = ["Semua", "Arab", "Inggris", "Italia", "Yunani", "Indonesia", "Prancis"];
+
+    function renderLanguageFilters() {
+      const count = parseInt(document.getElementById('wordCount').value, 10);
+      const container = document.getElementById('languageFilters');
+      container.innerHTML = '';
+
+      for (let i = 1; i <= count; i++) {
+        const div = document.createElement('div');
+        div.innerHTML = `
+          <span style="font-size:12px; color: var(--text-muted);">Kata ke-${i}:</span>
+          <select id="langPos_${i}">
+            ${availableLanguages.map(lang => `<option value="${lang}">${lang}</option>`).join('')}
+          </select>
+        `;
+        container.appendChild(div);
+      }
+    }
+
+    function applyFilters() {
+      try {
+        const targetWordCount = parseInt(document.getElementById('wordCount').value, 10);
+        const limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
+        
+        const selectedLangs = [];
+        for (let i = 1; i <= targetWordCount; i++) {
+          const select = document.getElementById(`langPos_${i}`);
+          selectedLangs.push(select ? select.value : "Semua");
+        }
+
+        let filteredData = rawNamesData.filter(item => {
+          if (!item || typeof item !== 'object') return false;
+          if (item.wordsCount !== targetWordCount) return false;
+
+          for (let i = 0; i < targetWordCount; i++) {
+            const requiredLang = selectedLangs[i];
+            if (requiredLang !== "Semua") {
+              const wordObj = item.words && item.words[i];
+              if (!wordObj || wordObj.lang !== requiredLang) {
+                return false;
+              }
+            }
+          }
+          return true;
+        });
+
+        filteredData = filteredData.slice(0, limitCount);
+        renderResults(filteredData);
+      } catch (err) {
+        console.error("Gagal memproses filter data:", err);
+      }
+    }
+
+    function renderResults(data) {
+      const grid = document.getElementById('nameGrid');
+      const countText = document.getElementById('resultCountText');
+      grid.innerHTML = '';
+
+      countText.innerText = `Menampilkan ${data.length} alternatif nama`;
+
+      if (data.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok dengan filter.</div>`;
+        return;
+      }
+
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'name-card';
+        card.onclick = () => openModal(item);
+
+        const langsText = (item.words || []).map(w => w.lang).join(' + ');
+
+        card.innerHTML = `
+          <div class="name-title">${escapeHtml(item.fullName || '')}</div>
+          <div class="name-subtitle">Kombinasi: ${escapeHtml(langsText)}</div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openModal(item) {
+      if (!item) return;
+
+      document.getElementById('modalName').innerText = item.fullName || '';
+      
+      const breakdownContainer = document.getElementById('modalBreakdown');
+      breakdownContainer.innerHTML = '';
+
+      if (Array.isArray(item.words)) {
+        item.words.forEach((w, index) => {
+          const div = document.createElement('div');
+          div.className = 'word-item';
+          div.innerHTML = `Kata ${index + 1} (<strong>${escapeHtml(w.lang || '')}</strong>): <em>"${escapeHtml(w.text || '')}"</em> - ${escapeHtml(w.meaning || '')}`;
+          breakdownContainer.appendChild(div);
+        });
+      }
+
+      document.getElementById('modalMeaning').innerText = `Doa & Harapan: "${item.fullMeaning || '-'}"`;
+      document.getElementById('detailModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('detailModal').classList.remove('active');
+    }
+
+    function closeModalOnOverlay(e) {
+      if (e.target.id === 'detailModal') {
+        closeModal();
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // Inisialisasi awal saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLanguageFilters();
+      applyFilters();
+    });
+  </script>
+</body>
+</html>
