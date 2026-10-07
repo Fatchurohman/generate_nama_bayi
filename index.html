@@ -6,19 +6,14 @@
   <title>Kumpulan Nama Baik - Royal Emerald & Glorious Gold</title>
   <style>
     :root {
-      /* Background & Base Colors */
       --bg-gradient: radial-gradient(circle at 50% 0%, #163B2A 0%, #0B1D15 70%, #050E0A 100%);
       --card-bg: rgba(16, 42, 30, 0.85);
       --input-bg: #091711;
-      
-      /* Gold Elements */
       --gold-primary: #F3C649;
       --gold-dark: #B8860B;
       --gold-light: #FFE89C;
       --gold-gradient: linear-gradient(135deg, #FFF0B3 0%, #F3C649 40%, #B8860B 80%, #7A5800 100%);
       --gold-soft-bg: rgba(243, 198, 73, 0.1);
-      
-      /* Typography Colors */
       --text-main: #F4F6F0;
       --text-muted: #A3B899;
       --text-gold: #FCE182;
@@ -244,7 +239,6 @@
       color: var(--text-muted);
     }
 
-    /* Modal Styling */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -387,13 +381,12 @@
     </div>
 
     <div class="results-info">
-      <span id="resultCountText">Menampilkan 0 alternatif nama</span>
+      <span id="resultCountText">Memuat data kosakata...</span>
     </div>
 
     <div id="nameGrid" class="name-grid"></div>
   </div>
 
-  <!-- Modal Detail Makna -->
   <div id="detailModal" class="modal-overlay" onclick="closeModalOnOverlay(event)">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -404,84 +397,28 @@
   </div>
 
   <script>
-    // System Repository Dasar Ringan
-    const baseVocab = {
-      Arab: [
-        { text: "Muhammad", meaning: "Yang terpuji" }, { text: "Rayyan", meaning: "Pintu surga" },
-        { text: "Faris", meaning: "Ksatria pandai" }, { text: "Zayn", meaning: "Perhiasan ketampanan" },
-        { text: "Hasan", meaning: "Baik dan indah" }, { text: "Nur", meaning: "Cahaya" },
-        { text: "Rahmah", meaning: "Kasih sayang" }, { text: "Ahmad", meaning: "Sangat terpuji" },
-        { text: "Khafi", meaning: "Yang lembut" }, { text: "Syakir", meaning: "Bersyukur" },
-        { text: "Akram", meaning: "Paling mulia" }, { text: "Basim", meaning: "Tersenyum" },
-        { text: "Danish", meaning: "Kebijaksanaan" }, { text: "Fadhil", meaning: "Dermawan" },
-        { text: "Ghazali", meaning: "Nama ulama besar" }, { text: "Habib", meaning: "Kekasih" },
-        { text: "Ihsan", meaning: "Kebaikan" }, { text: "Karim", meaning: "Mulia" },
-        { text: "Luqman", meaning: "Bijaksana" }, { text: "Rasyid", meaning: "Petunjuk lurus" }
-      ],
-      Inggris: [
-        { text: "Arthur", meaning: "Bangsawan kuat" }, { text: "Edward", meaning: "Pelindung kekayaan" },
-        { text: "Oliver", meaning: "Kedamaian zaitun" }, { text: "Alfred", meaning: "Penasihat bijak" },
-        { text: "William", meaning: "Pelindung gigih" }, { text: "Ashton", meaning: "Kota pohon abu" },
-        { text: "Blake", meaning: "Cahaya terang" }, { text: "Ethan", meaning: "Kuat dan kokoh" },
-        { text: "Felix", meaning: "Beruntung bahagia" }, { text: "Jasper", meaning: "Harta karun" }
-      ],
-      Italia: [
-        { text: "Matteo", meaning: "Hadiah Tuhan" }, { text: "Amara", meaning: "Abadi anggun" },
-        { text: "Leonardo", meaning: "Singa pemberani" }, { text: "Romeo", meaning: "Pengembara setia" },
-        { text: "Gioia", meaning: "Kebahagiaan" }, { text: "Dante", meaning: "Setia abadi" },
-        { text: "Enzo", meaning: "Pemimpin rumah" }, { text: "Gianni", meaning: "Tuhan maha pengasih" }
-      ],
-      Yunani: [
-        { text: "Alexander", meaning: "Pelindung manusia" }, { text: "Callysta", meaning: "Sangat cantik" },
-        { text: "Helena", meaning: "Cahaya terang" }, { text: "Theodore", meaning: "Karunia Tuhan" },
-        { text: "Nicholas", meaning: "Kemenangan rakyat" }, { text: "Apollo", meaning: "Cahaya ketampanan" },
-        { text: "Lucas", meaning: "Pembawa cahaya" }
-      ],
-      Indonesia: [
-        { text: "Kirana", meaning: "Sinar keindahan" }, { text: "Bintang", meaning: "Bersinar terang" },
-        { text: "Banyu", meaning: "Air kehidupan" }, { text: "Cahaya", meaning: "Sinar terang" },
-        { text: "Arka", meaning: "Matahari menerangi" }, { text: "Aditya", meaning: "Matahari" },
-        { text: "Baskara", meaning: "Menerangi dunia" }, { text: "Dharma", meaning: "Kebaikan kebenaran" }
-      ],
-      Prancis: [
-        { text: "Lucien", meaning: "Cahaya terang" }, { text: "Beau", meaning: "Tampan menawan" },
-        { text: "Adele", meaning: "Mulia baik hati" }, { text: "Aimée", meaning: "Yang dicintai" },
-        { text: "Céleste", meaning: "Surgawi" }, { text: "Etienne", meaning: "Mahkota kebanggaan" }
-      ]
-    };
-
-    const modifiers = [
-      { prefix: "", suffix: "", meaningAdd: "" },
-      { prefix: "Al-", suffix: "", meaningAdd: "terutama" },
-      { prefix: "", suffix: "i", meaningAdd: "bersifat" },
-      { prefix: "", suffix: "a", meaningAdd: "keindahan" },
-      { prefix: "", suffix: "uddin", meaningAdd: "pembela agama" },
-      { prefix: "", suffix: "ullah", meaningAdd: "karunia Allah" },
-      { prefix: "", suffix: "is", meaningAdd: "karisma" },
-      { prefix: "", suffix: "o", meaningAdd: "pelindung" }
-    ];
-
+    let vocabData = null;
     const availableLanguages = ["Semua", "Arab", "Inggris", "Italia", "Yunani", "Indonesia", "Prancis"];
     const selectableLanguages = ["Arab", "Inggris", "Italia", "Yunani", "Indonesia", "Prancis"];
 
-    // Dynamic Word Generator (On-Demand / Tanpa beban memori di awal)
-    function getRandomWordForLang(lang) {
-      const activeLang = (lang === "Semua") 
-        ? selectableLanguages[Math.floor(Math.random() * selectableLanguages.length)]
-        : lang;
+    async function loadVocabJSON() {
+      try {
+        const response = await fetch('vocab.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        vocabData = await response.json();
+        
+        if (!vocabData || !vocabData.baseVocab || !vocabData.modifiers) {
+          throw new Error("Format JSON tidak valid.");
+        }
 
-      const baseList = baseVocab[activeLang] || baseVocab["Arab"];
-      const baseObj = baseList[Math.floor(Math.random() * baseList.length)];
-      const modObj = modifiers[Math.floor(Math.random() * modifiers.length)];
-
-      const wordText = `${modObj.prefix}${baseObj.text}${modObj.suffix}`;
-      const meaningText = modObj.meaningAdd ? `${baseObj.meaning} (${modObj.meaningAdd})` : baseObj.meaning;
-
-      return {
-        text: wordText,
-        meaning: meaningText,
-        lang: activeLang
-      };
+        renderLanguageFilters();
+        applyFilters();
+      } catch (error) {
+        console.error("Gagal memuat JSON:", error);
+        document.getElementById('resultCountText').innerText = "Gagal memuat data kosakata. Pastikan file vocab.json tersedia.";
+      }
     }
 
     function renderLanguageFilters() {
@@ -501,63 +438,82 @@
       }
     }
 
+    // Helper: Acak Array menggunakan Fisher-Yates Shuffle
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Algoritma Cepat & Anti-Pengulangan Kata
     function generateNamesFromVocab(targetWordCount, selectedLangs, limitCount) {
-      const generatedResults = [];
-      const generatedFullNamesSet = new Set(); // O(1) LookUp
-      const maxAllowedRepeat = Math.max(1, Math.floor(limitCount * 0.10)); // Maksimal 10%
-      const wordUsageTracker = Array.from({ length: targetWordCount }, () => new Map());
+      if (!vocabData) return [];
 
-      let attempts = 0;
-      const maxIterations = limitCount * 15;
+      const results = [];
+      const usedFullNames = new Set();
+      const baseVocab = vocabData.baseVocab;
+      const modifiers = vocabData.modifiers;
 
-      while (generatedResults.length < limitCount && attempts < maxIterations) {
-        attempts++;
+      let safetyAttempts = 0;
+      const maxAttempts = limitCount * 10;
+
+      while (results.length < limitCount && safetyAttempts < maxAttempts) {
+        safetyAttempts++;
         const currentCombo = [];
-        const usedWordsInCombo = new Set();
-        let isValidCombination = true;
+        const usedWordsInSingleName = new Set(); // Mencegah kata berulang dalam 1 nama (misal: "Muhammad Muhammad")
 
-        for (let i = 0; i < targetWordCount; i++) {
-          let wordObj = null;
-          let retry = 0;
+        let isValidCombo = true;
 
-          // Cari kata unik yang memenuhi syarat batas < 10%
-          while (retry < 10) {
-            const tempWord = getRandomWordForLang(selectedLangs[i]);
-            const wordLower = tempWord.text.toLowerCase();
-            const posUsage = wordUsageTracker[i].get(wordLower) || 0;
+        for (let pos = 0; pos < targetWordCount; pos++) {
+          const langReq = selectedLangs[pos];
+          const activeLang = (langReq === "Semua") 
+            ? selectableLanguages[Math.floor(Math.random() * selectableLanguages.length)]
+            : langReq;
 
-            if (!usedWordsInCombo.has(wordLower) && posUsage < maxAllowedRepeat) {
-              wordObj = tempWord;
+          const list = baseVocab[activeLang] || baseVocab["Arab"];
+          
+          // Pilih kata acak yang belum dipakai di rangkaian kata nama ini
+          let baseObj = null;
+          const shuffledList = shuffleArray(list);
+          
+          for (const candidate of shuffledList) {
+            if (!usedWordsInSingleName.has(candidate.text.toLowerCase())) {
+              baseObj = candidate;
               break;
             }
-            retry++;
           }
 
-          if (!wordObj) {
-            isValidCombination = false;
+          if (!baseObj) {
+            isValidCombo = false;
             break;
           }
 
-          currentCombo.push(wordObj);
-          usedWordsInCombo.add(wordObj.text.toLowerCase());
+          usedWordsInSingleName.add(baseObj.text.toLowerCase());
+
+          const modObj = modifiers[Math.floor(Math.random() * modifiers.length)];
+          const wordText = `${modObj.prefix}${baseObj.text}${modObj.suffix}`;
+          const meaningText = modObj.meaningAdd ? `${baseObj.meaning} (${modObj.meaningAdd})` : baseObj.meaning;
+
+          currentCombo.push({
+            text: wordText,
+            meaning: meaningText,
+            lang: activeLang
+          });
         }
 
-        if (isValidCombination && currentCombo.length === targetWordCount) {
+        if (isValidCombo && currentCombo.length === targetWordCount) {
           const fullName = currentCombo.map(w => w.text).join(' ');
-          const fullNameLower = fullName.toLowerCase();
+          const fullNameKey = fullName.toLowerCase();
 
-          if (!generatedFullNamesSet.has(fullNameLower)) {
-            generatedFullNamesSet.add(fullNameLower);
-
-            // Update tracker frekuensi penggunaan kata per posisi
-            currentCombo.forEach((w, posIndex) => {
-              const wordLower = w.text.toLowerCase();
-              const currentUsage = wordUsageTracker[posIndex].get(wordLower) || 0;
-              wordUsageTracker[posIndex].set(wordLower, currentUsage + 1);
-            });
-
+          // Mencegah Nama Lengkap Kembar di Hasil Tampilan
+          if (!usedFullNames.has(fullNameKey)) {
+            usedFullNames.add(fullNameKey);
             const meaningsStr = currentCombo.map(w => w.meaning.toLowerCase()).join(', ');
-            generatedResults.push({
+
+            results.push({
               id: Date.now() + Math.random(),
               fullName: fullName,
               wordsCount: targetWordCount,
@@ -568,25 +524,23 @@
         }
       }
 
-      return generatedResults;
+      return results;
     }
 
     function applyFilters() {
-      try {
-        const targetWordCount = parseInt(document.getElementById('wordCount').value, 10);
-        const limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
-        
-        const selectedLangs = [];
-        for (let i = 1; i <= targetWordCount; i++) {
-          const select = document.getElementById(`langPos_${i}`);
-          selectedLangs.push(select ? select.value : "Semua");
-        }
+      if (!vocabData) return;
 
-        const generatedData = generateNamesFromVocab(targetWordCount, selectedLangs, limitCount);
-        renderResults(generatedData);
-      } catch (err) {
-        console.error("Gagal memproses pembuatan nama:", err);
+      const targetWordCount = parseInt(document.getElementById('wordCount').value, 10);
+      const limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
+      
+      const selectedLangs = [];
+      for (let i = 1; i <= targetWordCount; i++) {
+        const select = document.getElementById(`langPos_${i}`);
+        selectedLangs.push(select ? select.value : "Semua");
       }
+
+      const generatedData = generateNamesFromVocab(targetWordCount, selectedLangs, limitCount);
+      renderResults(generatedData);
     }
 
     function renderResults(data) {
@@ -597,7 +551,7 @@
       countText.innerText = `Menampilkan ${data.length} alternatif nama`;
 
       if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok dengan kriteria filter.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok.</div>`;
         return;
       }
 
@@ -660,10 +614,7 @@
         .replace(/'/g, "&#039;");
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      renderLanguageFilters();
-      applyFilters();
-    });
+    document.addEventListener('DOMContentLoaded', loadVocabJSON);
   </script>
 </body>
 </html>
