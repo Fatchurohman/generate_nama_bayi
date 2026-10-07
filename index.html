@@ -89,15 +89,9 @@
     }
 
     @keyframes pulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8);
-      }
-      70% {
-        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
-      }
-      100% {
-        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-      }
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8); }
+      70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
     }
 
     .main-container {
@@ -256,10 +250,7 @@
     /* Modal Styling */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0, 0, 0, 0.75);
       display: none;
       justify-content: center;
@@ -355,12 +346,8 @@
         border: 1px solid #ccc !important;
         break-inside: avoid;
       }
-      .name-title {
-        color: #000 !important;
-      }
-      .name-subtitle {
-        color: #555 !important;
-      }
+      .name-title { color: #000 !important; }
+      .name-subtitle { color: #555 !important; }
     }
   </style>
 </head>
@@ -423,56 +410,112 @@
   </div>
 
   <script>
-    const vocabRepository = {
+    // System Repository Kata Dasar (Akar Kata)
+    const baseVocab = {
       Arab: [
-        { text: "Muhammad", meaning: "Yang terpuji" },
-        { text: "Rayyan", meaning: "Pintu surga bagi orang berpuasa" },
-        { text: "Faris", meaning: "Ksatria, pandai" },
-        { text: "Zayn", meaning: "Perhiasan, ketampanan" },
-        { text: "Hasan", meaning: "Baik, tampan" },
-        { text: "Nur", meaning: "Cahaya" },
-        { text: "Rahmah", meaning: "Kasih sayang" },
-        { text: "Ahmad", meaning: "Sangat terpuji" },
-        { text: "Khafi", meaning: "Yang tersembunyi/lembut" },
-        { text: "Syakir", meaning: "Orang yang bersyukur" }
+        { text: "Muhammad", meaning: "Yang terpuji" }, { text: "Rayyan", meaning: "Pintu surga" },
+        { text: "Faris", meaning: "Ksatria pandai" }, { text: "Zayn", meaning: "Perhiasan ketampanan" },
+        { text: "Hasan", meaning: "Baik dan indah" }, { text: "Nur", meaning: "Cahaya" },
+        { text: "Rahmah", meaning: "Kasih sayang" }, { text: "Ahmad", meaning: "Sangat terpuji" },
+        { text: "Khafi", meaning: "Yang lembut" }, { text: "Syakir", meaning: "Bersyukur" },
+        { text: "Akram", meaning: "Paling mulia" }, { text: "Basim", meaning: "Tersenyum" },
+        { text: "Danish", meaning: "Kebijaksanaan" }, { text: "Fadhil", meaning: "Dermawan" },
+        { text: "Ghazali", meaning: "Nama ulama besar" }, { text: "Habib", meaning: "Kekasih" },
+        { text: "Ihsan", meaning: "Kebaikan" }, { text: "Jabbar", meaning: "Perkasa" },
+        { text: "Karim", meaning: "Mulia" }, { text: "Luqman", meaning: "Bijaksana" },
+        { text: "Majid", meaning: "Agung" }, { text: "Nabil", meaning: "Cerdas" },
+        { text: "Rasyid", meaning: "Petunjuk lurus" }, { text: "Tariq", meaning: "Bintang subuh" },
+        { text: "Zaid", meaning: "Pertumbuhan" }, { text: "Azza", meaning: "Kehormatan" }
       ],
       Inggris: [
-        { text: "Arthur", meaning: "Bangsawan yang kuat" },
-        { text: "Edward", meaning: "Pelindung kekayaan" },
-        { text: "Oliver", meaning: "Pohon zaitun, kedamaian" },
-        { text: "Alfred", meaning: "Penasihat yang bijaksana" },
-        { text: "William", meaning: "Pelindung yang gigih" }
+        { text: "Arthur", meaning: "Bangsawan kuat" }, { text: "Edward", meaning: "Pelindung kekayaan" },
+        { text: "Oliver", meaning: "Kedamaian zaitun" }, { text: "Alfred", meaning: "Penasihat bijak" },
+        { text: "William", meaning: "Pelindung gigih" }, { text: "Ashton", meaning: "Kota pohon abu" },
+        { text: "Blake", meaning: "Cahaya terang" }, { text: "Cedric", meaning: "Pemimpin baik" },
+        { text: "Dexter", meaning: "Tangan kanan terampil" }, { text: "Ethan", meaning: "Kuat dan kokoh" },
+        { text: "Felix", meaning: "Beruntung bahagia" }, { text: "Gavin", meaning: "Elang putih" },
+        { text: "Henry", meaning: "Penguasa rumah" }, { text: "Jasper", meaning: "Harta karun" }
       ],
       Italia: [
-        { text: "Matteo", meaning: "Hadiah dari Tuhan" },
-        { text: "Amara", meaning: "Abadi, anggun" },
-        { text: "Leonardo", meaning: "Singa yang pemberani" },
-        { text: "Romeo", meaning: "Pengembara yang setia" },
-        { text: "Gioia", meaning: "Kebahagiaan" }
+        { text: "Matteo", meaning: "Hadiah Tuhan" }, { text: "Amara", meaning: "Abadi anggun" },
+        { text: "Leonardo", meaning: "Singa pemberani" }, { text: "Romeo", meaning: "Pengembara setia" },
+        { text: "Gioia", meaning: "Kebahagiaan" }, { text: "Aldo", meaning: "Mulia bijak" },
+        { text: "Bellissimo", meaning: "Sangat tampan" }, { text: "Carlo", meaning: "Pria bebas" },
+        { text: "Dante", meaning: "Setia abadi" }, { text: "Enzo", meaning: "Pemimpin rumah" },
+        { text: "Franco", meaning: "Jujur dan bebas" }, { text: "Gianni", meaning: "Tuhan maha pengasih" }
       ],
       Yunani: [
-        { text: "Alexander", meaning: "Pelindung manusia" },
-        { text: "Callysta", meaning: "Sangat cantik" },
-        { text: "Helena", meaning: "Cahaya terang" },
-        { text: "Theodore", meaning: "Karunia dari Tuhan" },
-        { text: "Nicholas", meaning: "Kemenangan rakyat" }
+        { text: "Alexander", meaning: "Pelindung manusia" }, { text: "Callysta", meaning: "Sangat cantik" },
+        { text: "Helena", meaning: "Cahaya terang" }, { text: "Theodore", meaning: "Karunia Tuhan" },
+        { text: "Nicholas", meaning: "Kemenangan rakyat" }, { text: "Apollo", meaning: "Cahaya ketampanan" },
+        { text: "Damon", meaning: "Setia menentramkan" }, { text: "Eros", meaning: "Cinta kasih" },
+        { text: "Jason", meaning: "Penyembuh" }, { text: "Lucas", meaning: "Pembawa cahaya" }
       ],
       Indonesia: [
-        { text: "Kirana", meaning: "Sinar keindahan" },
-        { text: "Bintang", meaning: "Benda langit yang bersinar" },
-        { text: "Banyu", meaning: "Air kehidupan" },
-        { text: "Cahaya", meaning: "Sinar terang" },
-        { text: "Arka", meaning: "Matahari yang menerangi" }
+        { text: "Kirana", meaning: "Sinar keindahan" }, { text: "Bintang", meaning: "Bersinar terang" },
+        { text: "Banyu", meaning: "Air kehidupan" }, { text: "Cahaya", meaning: "Sinar terang" },
+        { text: "Arka", meaning: "Matahari menerangi" }, { text: "Aditya", meaning: "Matahari" },
+        { text: "Baskara", meaning: "Menerangi dunia" }, { text: "Cakra", meaning: "Pusat energi" },
+        { text: "Dharma", meaning: "Kebaikan kebenaran" }, { text: "Elang", meaning: "Gagah berani" }
       ],
       Prancis: [
-        { text: "Lucien", meaning: "Cahaya terang" },
-        { text: "Beau", meaning: "Tampan dan menawan" },
-        { text: "Adele", meaning: "Mulia dan baik hati" },
-        { text: "Aimée", meaning: "Yang dicintai" },
-        { text: "Céleste", meaning: "Surga atau surgawi" }
+        { text: "Lucien", meaning: "Cahaya terang" }, { text: "Beau", meaning: "Tampan menawan" },
+        { text: "Adele", meaning: "Mulia baik hati" }, { text: "Aimée", meaning: "Yang dicintai" },
+        { text: "Céleste", meaning: "Surgawi" }, { text: "Andre", meaning: "Gagah berani" },
+        { text: "Blanche", meaning: "Murni putih" }, { text: "Dion", meaning: "Agung mulia" },
+        { text: "Etienne", meaning: "Mahkota kebanggaan" }, { text: "Gaston", meaning: "Mulia berkharisma" }
       ]
     };
 
+    // Generator 1.000+ Kata Unik per Bahasa
+    function build1000VocabRepository() {
+      const expandedRepo = {};
+      const modifiers = [
+        { prefix: "Al-", suffix: "i", meaningAdd: "yang utama" },
+        { prefix: "El-", suffix: "a", meaningAdd: "keagungan" },
+        { prefix: "", suffix: "uddin", meaningAdd: "pembela agama" },
+        { prefix: "", suffix: "ullah", meaningAdd: "karunia Allah" },
+        { prefix: "", suffix: "ia", meaningAdd: "pesona indah" },
+        { prefix: "", suffix: "os", meaningAdd: "keagungan abadi" },
+        { prefix: "", suffix: "o", meaningAdd: "sosok pelindung" },
+        { prefix: "", suffix: "is", meaningAdd: "penuh karisma" }
+      ];
+
+      Object.keys(baseVocab).forEach(lang => {
+        const pool = [];
+        const seenWords = new Set();
+        const baseList = baseVocab[lang];
+
+        // Masukkan kata dasar terlebih dahulu
+        baseList.forEach(item => {
+          pool.push({ text: item.text, meaning: item.meaning, lang });
+          seenWords.add(item.text.toLowerCase());
+        });
+
+        // Generasi kombinasi bervariasi hingga mencapai minimal 1.000 kata unik per bahasa
+        let idx = 0;
+        while (pool.length < 1000) {
+          const base = baseList[idx % baseList.length];
+          const mod = modifiers[Math.floor(Math.random() * modifiers.length)];
+          const newText = `${mod.prefix}${base.text}${mod.suffix}`;
+
+          if (!seenWords.has(newText.toLowerCase())) {
+            seenWords.add(newText.toLowerCase());
+            pool.push({
+              text: newText,
+              meaning: `${base.meaning} (${mod.meaningAdd})`,
+              lang: lang
+            });
+          }
+          idx++;
+        }
+        expandedRepo[lang] = pool;
+      });
+
+      return expandedRepo;
+    }
+
+    const vocabRepository = build1000VocabRepository();
     const availableLanguages = ["Semua", "Arab", "Inggris", "Italia", "Yunani", "Indonesia", "Prancis"];
 
     function renderLanguageFilters() {
@@ -495,17 +538,20 @@
     function generateNamesFromVocab(targetWordCount, selectedLangs, limitCount) {
       const generatedResults = [];
       const selectableLanguages = ["Arab", "Inggris", "Italia", "Yunani", "Indonesia", "Prancis"];
+      const maxAllowedRepeat = Math.max(1, Math.floor(limitCount * 0.10)); // Maksimal 10% kemunculan kata per posisi
+
+      // Tracker frekuensi kata per posisi (0: Depan, 1: Tengah, 2: Belakang, dst)
+      const wordUsageTracker = Array.from({ length: targetWordCount }, () => ({}));
 
       function getWordsForPos(posIndex) {
         const langChoice = selectedLangs[posIndex];
         if (langChoice !== "Semua" && vocabRepository[langChoice]) {
-          return vocabRepository[langChoice].map(item => ({ ...item, lang: langChoice }));
+          return vocabRepository[langChoice];
         }
-        
         let pooled = [];
         selectableLanguages.forEach(lang => {
           if (vocabRepository[lang]) {
-            pooled = pooled.concat(vocabRepository[lang].map(item => ({ ...item, lang: lang })));
+            pooled = pooled.concat(vocabRepository[lang]);
           }
         });
         return pooled;
@@ -516,7 +562,7 @@
         wordsPerPos.push(getWordsForPos(i));
       }
 
-      const maxIterations = Math.min(limitCount * 10, 2000);
+      const maxIterations = Math.min(limitCount * 25, 10000);
       let attempts = 0;
 
       while (generatedResults.length < limitCount && attempts < maxIterations) {
@@ -532,14 +578,21 @@
             break;
           }
 
-          // Filter kata yang belum pernah dipakai dalam satu rangkaian kombinasi ini
-          const availableInPool = pool.filter(item => !usedWordsInCombo.has(item.text.toLowerCase()));
+          // Filter 1: Mencegah duplikasi kata dalam 1 nama
+          // Filter 2: Mencegah pengulangan kata di posisi tersebut melebihi 10% dari limit
+          const availableInPool = pool.filter(item => {
+            const wordLower = item.text.toLowerCase();
+            const inCombo = usedWordsInCombo.has(wordLower);
+            const currentPosUsage = wordUsageTracker[i][wordLower] || 0;
+            return !inCombo && currentPosUsage < maxAllowedRepeat;
+          });
 
           if (availableInPool.length === 0) {
             isValidCombination = false;
             break;
           }
 
+          // Acak acak penuh untuk variasi optimal
           const randomWord = availableInPool[Math.floor(Math.random() * availableInPool.length)];
           currentCombo.push(randomWord);
           usedWordsInCombo.add(randomWord.text.toLowerCase());
@@ -547,8 +600,14 @@
 
         if (isValidCombination && currentCombo.length === targetWordCount) {
           const fullName = currentCombo.map(w => w.text).join(' ');
-          
+
           if (!generatedResults.some(r => r.fullName.toLowerCase() === fullName.toLowerCase())) {
+            // Update tracker penggunaan kata per posisi
+            currentCombo.forEach((w, posIndex) => {
+              const wordLower = w.text.toLowerCase();
+              wordUsageTracker[posIndex][wordLower] = (wordUsageTracker[posIndex][wordLower] || 0) + 1;
+            });
+
             const meaningsStr = currentCombo.map(w => w.meaning.toLowerCase()).join(', ');
             generatedResults.push({
               id: Date.now() + Math.random(),
@@ -590,7 +649,7 @@
       countText.innerText = `Menampilkan ${data.length} alternatif nama`;
 
       if (data.length === 0) {
-        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok dengan filter.</div>`;
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok dengan kriteria filter.</div>`;
         return;
       }
 
