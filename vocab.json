@@ -26,7 +26,16 @@
       { "text": "Bilal", "meaning": "Titisan embun" },
       { "text": "Tariq", "meaning": "Bintang fajar" },
       { "text": "Malik", "meaning": "Raja pemimpin" },
-      { "text": "Nabil", "meaning": "Cerdas dan terhormat" }
+      { "text": "Nabil", "meaning": "Cerdas dan terhormat" },
+      { "text": "Amin", "meaning": "Dapat dipercaya" },
+      { "text": "Anas", "meaning": "Kemesraan dan cinta" },
+      { "text": "Faiq", "meaning": "Unggul dan terdepan" },
+      { "text": "Haedar", "meaning": "Singa pemberani" },
+      { "text": "Hakim", "meaning": "Bijaksana" },
+      { "text": "Hanif", "meaning": "Lurus dan teguh" },
+      { "text": "Irshad", "meaning": "Petunjuk" },
+      { "text": "Majid", "meaning": "Mulia dan dihormati" },
+      { "text": "Rafi", "meaning": "Tinggi derajatnya" }
     ],
     "Inggris": [
       { "text": "Arthur", "meaning": "Bangsawan kuat" },
@@ -42,7 +51,11 @@
       { "text": "Liam", "meaning": "Prajurit berani" },
       { "text": "Austin", "meaning": "Agung dan mulia" },
       { "text": "Caleb", "meaning": "Setia dan pemberani" },
-      { "text": "Gavin", "meaning": "Elang putih" }
+      { "text": "Gavin", "meaning": "Elang putih" },
+      { "text": "Henry", "meaning": "Pemimpin rumah tangga" },
+      { "text": "Julian", "meaning": "Muda dan berjiwa halus" },
+      { "text": "Leo", "meaning": "Singa yang kuat" },
+      { "text": "Milo", "meaning": "Pengasih dan tenang" }
     ],
     "Italia": [
       { "text": "Matteo", "meaning": "Hadiah Tuhan" },
@@ -54,7 +67,10 @@
       { "text": "Enzo", "meaning": "Pemimpin rumah" },
       { "text": "Gianni", "meaning": "Tuhan maha pengasih" },
       { "text": "Lorenzo", "meaning": "Pemenang bermahkota" },
-      { "text": "Marco", "meaning": "Ksatria tangguh" }
+      { "text": "Marco", "meaning": "Ksatria tangguh" },
+      { "text": "Aldo", "meaning": "Mulia dan tua bijak" },
+      { "text": "Carlo", "meaning": "Pria bebas" },
+      { "text": "Elio", "meaning": "Matahari" }
     ],
     "Yunani": [
       { "text": "Alexander", "meaning": "Pelindung manusia" },
@@ -65,7 +81,9 @@
       { "text": "Apollo", "meaning": "Cahaya ketampanan" },
       { "text": "Lucas", "meaning": "Pembawa cahaya" },
       { "text": "Sebastian", "meaning": "Sangat dihormati" },
-      { "text": "Jason", "meaning": "Penyembuh" }
+      { "text": "Jason", "meaning": "Penyembuh" },
+      { "text": "Dion", "meaning": "Megah dan bercahaya" },
+      { "text": "Eros", "meaning": "Cinta kasih" }
     ],
     "Indonesia": [
       { "text": "Kirana", "meaning": "Sinar keindahan" },
@@ -78,7 +96,10 @@
       { "text": "Dharma", "meaning": "Kebaikan kebenaran" },
       { "text": "Elang", "meaning": "Gagah berani" },
       { "text": "Gilang", "meaning": "Cahaya gemilang" },
-      { "text": "Tirta", "meaning": "Air suci" }
+      { "text": "Tirta", "meaning": "Air suci" },
+      { "text": "Bayu", "meaning": "Angin sejuk" },
+      { "text": "Damar", "meaning": "Pelita penerang" },
+      { "text": "Fajar", "meaning": "Awal yang baru" }
     ],
     "Prancis": [
       { "text": "Lucien", "meaning": "Cahaya terang" },
@@ -88,7 +109,9 @@
       { "text": "Céleste", "meaning": "Surgawi" },
       { "text": "Etienne", "meaning": "Mahkota kebanggaan" },
       { "text": "Leon", "meaning": "Singa pemberani" },
-      { "text": "Remy", "meaning": "Pendayung tangguh" }
+      { "text": "Remy", "meaning": "Pendayung tangguh" },
+      { "text": "Andre", "meaning": "Gagah berani" },
+      { "text": "Gaston", "meaning": "Tamu terhormat" }
     ]
   },
   "modifiers": [
