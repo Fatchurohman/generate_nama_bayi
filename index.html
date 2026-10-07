@@ -329,7 +329,6 @@
       line-height: 1.5;
     }
 
-    /* Print Area Styling */
     @media print {
       body {
         background: #FFFFFF !important;
@@ -424,7 +423,6 @@
   </div>
 
   <script>
-    // Repositori Kata Terkurasi per Bahasa
     const vocabRepository = {
       Arab: [
         { text: "Muhammad", meaning: "Yang terpuji" },
@@ -518,24 +516,39 @@
         wordsPerPos.push(getWordsForPos(i));
       }
 
-      const maxIterations = Math.min(limitCount * 3, 500);
+      const maxIterations = Math.min(limitCount * 10, 2000);
       let attempts = 0;
 
       while (generatedResults.length < limitCount && attempts < maxIterations) {
         attempts++;
         const currentCombo = [];
-        
+        const usedWordsInCombo = new Set();
+        let isValidCombination = true;
+
         for (let i = 0; i < targetWordCount; i++) {
           const pool = wordsPerPos[i];
-          if (!pool || pool.length === 0) break;
-          const randomWord = pool[Math.floor(Math.random() * pool.length)];
+          if (!pool || pool.length === 0) {
+            isValidCombination = false;
+            break;
+          }
+
+          // Filter kata yang belum pernah dipakai dalam satu rangkaian kombinasi ini
+          const availableInPool = pool.filter(item => !usedWordsInCombo.has(item.text.toLowerCase()));
+
+          if (availableInPool.length === 0) {
+            isValidCombination = false;
+            break;
+          }
+
+          const randomWord = availableInPool[Math.floor(Math.random() * availableInPool.length)];
           currentCombo.push(randomWord);
+          usedWordsInCombo.add(randomWord.text.toLowerCase());
         }
 
-        if (currentCombo.length === targetWordCount) {
+        if (isValidCombination && currentCombo.length === targetWordCount) {
           const fullName = currentCombo.map(w => w.text).join(' ');
           
-          if (!generatedResults.some(r => r.fullName === fullName)) {
+          if (!generatedResults.some(r => r.fullName.toLowerCase() === fullName.toLowerCase())) {
             const meaningsStr = currentCombo.map(w => w.meaning.toLowerCase()).join(', ');
             generatedResults.push({
               id: Date.now() + Math.random(),
