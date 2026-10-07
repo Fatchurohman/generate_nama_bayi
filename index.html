@@ -438,7 +438,6 @@
       }
     }
 
-    // Helper: Acak Array menggunakan Fisher-Yates Shuffle
     function shuffleArray(array) {
       const arr = [...array];
       for (let i = arr.length - 1; i > 0; i--) {
@@ -448,7 +447,7 @@
       return arr;
     }
 
-    // Algoritma Cepat & Anti-Pengulangan Kata
+    // Algoritma Generasi Aman & Cepat hingga 1000 Nama Unik
     function generateNamesFromVocab(targetWordCount, selectedLangs, limitCount) {
       if (!vocabData) return [];
 
@@ -457,14 +456,12 @@
       const baseVocab = vocabData.baseVocab;
       const modifiers = vocabData.modifiers;
 
-      let safetyAttempts = 0;
-      const maxAttempts = limitCount * 10;
+      let consecutiveFailures = 0;
+      const maxFailures = 500; // Menghentikan pencarian jika kombinasi unik sudah benar-benar habis
 
-      while (results.length < limitCount && safetyAttempts < maxAttempts) {
-        safetyAttempts++;
+      while (results.length < limitCount && consecutiveFailures < maxFailures) {
         const currentCombo = [];
-        const usedWordsInSingleName = new Set(); // Mencegah kata berulang dalam 1 nama (misal: "Muhammad Muhammad")
-
+        const usedWordsInSingleName = new Set();
         let isValidCombo = true;
 
         for (let pos = 0; pos < targetWordCount; pos++) {
@@ -474,11 +471,9 @@
             : langReq;
 
           const list = baseVocab[activeLang] || baseVocab["Arab"];
-          
-          // Pilih kata acak yang belum dipakai di rangkaian kata nama ini
-          let baseObj = null;
           const shuffledList = shuffleArray(list);
           
+          let baseObj = null;
           for (const candidate of shuffledList) {
             if (!usedWordsInSingleName.has(candidate.text.toLowerCase())) {
               baseObj = candidate;
@@ -508,9 +503,10 @@
           const fullName = currentCombo.map(w => w.text).join(' ');
           const fullNameKey = fullName.toLowerCase();
 
-          // Mencegah Nama Lengkap Kembar di Hasil Tampilan
           if (!usedFullNames.has(fullNameKey)) {
             usedFullNames.add(fullNameKey);
+            consecutiveFailures = 0; // Reset kegagalan jika berhasil menemukan nama baru
+
             const meaningsStr = currentCombo.map(w => w.meaning.toLowerCase()).join(', ');
 
             results.push({
@@ -520,7 +516,11 @@
               words: currentCombo,
               fullMeaning: `Sosok yang membawakan harapan (${meaningsStr}), menjadi doa kebaikan bagi kehidupannya.`
             });
+          } else {
+            consecutiveFailures++;
           }
+        } else {
+          consecutiveFailures++;
         }
       }
 
@@ -531,8 +531,13 @@
       if (!vocabData) return;
 
       const targetWordCount = parseInt(document.getElementById('wordCount').value, 10);
-      const limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
+      let limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
       
+      // Pembatasan angka input agar tetap dalam batas wajar 1 - 1000
+      if (limitCount < 1) limitCount = 1;
+      if (limitCount > 1000) limitCount = 1000;
+      document.getElementById('limitCount').value = limitCount;
+
       const selectedLangs = [];
       for (let i = 1; i <= targetWordCount; i++) {
         const select = document.getElementById(`langPos_${i}`);
@@ -540,15 +545,19 @@
       }
 
       const generatedData = generateNamesFromVocab(targetWordCount, selectedLangs, limitCount);
-      renderResults(generatedData);
+      renderResults(generatedData, limitCount);
     }
 
-    function renderResults(data) {
+    function renderResults(data, requestedLimit) {
       const grid = document.getElementById('nameGrid');
       const countText = document.getElementById('resultCountText');
       grid.innerHTML = '';
 
-      countText.innerText = `Menampilkan ${data.length} alternatif nama`;
+      if (data.length < requestedLimit) {
+        countText.innerText = `Menampilkan ${data.length} alternatif nama (Maksimal kombinasi unik yang tersedia).`;
+      } else {
+        countText.innerText = `Menampilkan ${data.length} alternatif nama.`;
+      }
 
       if (data.length === 0) {
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok.</div>`;
