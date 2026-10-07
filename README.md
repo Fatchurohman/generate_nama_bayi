@@ -1,0 +1,1 @@
+# kumpulan_1000nama_baik
