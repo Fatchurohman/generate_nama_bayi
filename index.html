@@ -3,95 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Kombinasi Nama Bayi</title>
+    <title>Generator Nama Bayi - Glorious Edition</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', 'Segoe UI', serif;
         }
         body {
-            background-color: #f0f2f5;
-            padding: 20px;
+            background: linear-gradient(135deg, #072215 0%, #0b3b24 50%, #051a10 100%);
+            min-height: 100vh;
+            padding: 30px 15px;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
+            color: #222;
         }
         .container {
             background: #ffffff;
             width: 100%;
-            max-width: 650px;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 680px;
+            padding: 35px;
+            border-radius: 16px;
+            border: 2px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+            position: relative;
         }
         h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #1a202c;
+            margin-bottom: 25px;
+            color: #0b3b24;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #0b3b24, #1a5c3d, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #4a5568;
-        }
-        select, input, button {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 6px;
-            border: 1px solid #cbd5e0;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0b3b24;
             font-size: 15px;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d4af37;
+            background-color: #fcfbf7;
+            font-size: 15px;
+            color: #1a1a1a;
             outline: none;
+            transition: all 0.3s ease;
         }
         select:focus, input:focus {
-            border-color: #3182ce;
+            border-color: #aa771c;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
         }
         .word-config-box {
-            background-color: #f7fafc;
-            border: 1px solid #e2e8f0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: #f4f8f5;
+            border: 1px solid #c2a34b;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
         .word-row {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .word-row:last-child {
             margin-bottom: 0;
         }
-        button {
-            background-color: #3182ce;
-            color: white;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            padding: 12px;
-            margin-top: 10px;
-            transition: background 0.2s;
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
-        button:hover {
-            background-color: #2b6cb0;
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-generate {
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #aa771c 100%);
+            color: #0b3b24;
+            box-shadow: 0 4px 12px rgba(170, 119, 28, 0.3);
+        }
+        .btn-generate:hover {
+            background: linear-gradient(135deg, #aa771c 0%, #d4af37 50%, #ffd700 100%);
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5);
+        }
+        .btn-action {
+            background: #0b3b24;
+            color: #ffd700;
+            border: 1px solid #d4af37;
+        }
+        .btn-action:hover {
+            background: #134e35;
+            color: #ffffff;
         }
         .results-container {
-            margin-top: 25px;
-            max-height: 400px;
+            margin-top: 30px;
+            border: 2px solid #d4af37;
+            border-radius: 10px;
+            padding: 15px;
+            background: #fdfdfa;
+            max-height: 450px;
             overflow-y: auto;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px;
-            background: #fafafa;
         }
         .result-item {
             background: #ffffff;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            border-left: 4px solid #3182ce;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 5px solid #0b3b24;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-right: 1px solid #eee;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
         }
         .result-item:last-child {
             margin-bottom: 0;
@@ -99,23 +141,70 @@
         .name-title {
             font-size: 18px;
             font-weight: bold;
-            color: #2d3748;
+            color: #0b3b24;
         }
         .name-meaning {
             font-size: 14px;
-            color: #718096;
-            margin-top: 4px;
+            color: #555;
+            margin-top: 5px;
+            font-style: italic;
         }
         .error-msg {
-            color: #e53e3e;
+            color: #c53030;
             text-align: center;
             padding: 10px;
+        }
+
+        /* Styling Khusus Cetak & Simpan PDF */
+        @media print {
+            body {
+                background: none;
+                color: #000;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                width: 100%;
+                padding: 0;
+            }
+            .form-group, .word-config-box, .btn-group, #generateBtn, h2 {
+                display: none !important;
+            }
+            .results-container {
+                max-height: none;
+                overflow: visible;
+                border: none;
+                padding: 0;
+            }
+            .print-header {
+                display: block !important;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .print-header h1 {
+                color: #0b3b24;
+                font-size: 24px;
+            }
+            .result-item {
+                border-left: 3px solid #0b3b24;
+                page-break-inside: avoid;
+            }
+        }
+        .print-header {
+            display: none;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div class="print-header">
+        <h1>Daftar Rekomendasi Nama Bayi</h1>
+        <hr style="margin-top: 10px; border: 1px solid #d4af37;">
+    </div>
+
     <h2>Generator Nama Bayi</h2>
 
     <!-- 1. Jenis Kelamin -->
@@ -127,7 +216,7 @@
         </select>
     </div>
 
-    <!-- 2. Jumlah Kata (Maksimal 3 Kata) -->
+    <!-- 2. Jumlah Kata -->
     <div class="form-group">
         <label for="wordCountSelect">2. Jumlah Kata Nama:</label>
         <select id="wordCountSelect">
@@ -137,24 +226,26 @@
         </select>
     </div>
 
-    <!-- 3. Pilihan Bahasa Masing-Masing Kata -->
+    <!-- 3. Pilihan Bahasa per Kata -->
     <div class="word-config-box">
         <label>3. Pilihan Bahasa per Kata:</label>
-        <div id="wordLanguagesContainer">
-            <!-- Bahasa Kata Dynamic Injection -->
-        </div>
+        <div id="wordLanguagesContainer"></div>
     </div>
 
-    <!-- 4. Jumlah Generate (Maksimal 200) -->
+    <!-- 4. Jumlah Generate -->
     <div class="form-group">
-        <label for="limitInput">4. Jumlah Nama yang Digenerate (Maks. 200):</label>
+        <label for="limitInput">4. Jumlah Nama (Maks. 200):</label>
         <input type="number" id="limitInput" value="10" min="1" max="200">
     </div>
 
-    <button id="generateBtn">Generate Kombinasi Nama</button>
+    <button id="generateBtn" class="btn-generate">Generate Kombinasi Nama</button>
 
-    <!-- Output Hasil -->
+    <!-- Output Hasil & Aksi Cetak/PDF -->
     <div class="results-container" id="resultsContainer" style="display: none;">
+        <div class="btn-group" style="margin-bottom: 15px; margin-top: 0;">
+            <button id="printBtn" class="btn-action">Cetak Hasil</button>
+            <button id="pdfBtn" class="btn-action">Simpan PDF</button>
+        </div>
         <div id="resultsList"></div>
     </div>
 </div>
@@ -162,12 +253,11 @@
 <script>
     let vocabData = null;
 
-    // Fetch data JSON safe loading
     async function loadVocabData() {
         try {
             const response = await fetch('vocab.json');
             if (!response.ok) {
-                throw new Error(`HTTP Error Status: ${response.status}`);
+                throw new Error(`HTTP Error: ${response.status}`);
             }
             vocabData = await response.json();
         } catch (error) {
@@ -176,7 +266,6 @@
         }
     }
 
-    // Fungsi Render Input Bahasa per Kata
     function renderWordLanguageOptions(count) {
         const container = document.getElementById('wordLanguagesContainer');
         container.innerHTML = '';
@@ -198,7 +287,6 @@
         }
     }
 
-    // Fungsi Helper Mengambil Array Nama sesuai Gender & Bahasa
     function getWordList(lang, gender) {
         if (!vocabData) return [];
         if (lang === 'unisex') {
@@ -210,13 +298,11 @@
         return [];
     }
 
-    // Helper Acak Elemen Array
     function getRandomElement(arr) {
         if (!Array.isArray(arr) || arr.length === 0) return null;
         return arr[Math.floor(Math.random() * arr.length)];
     }
 
-    // Logika Utama Generator
     function generateNames() {
         const resultsContainer = document.getElementById('resultsContainer');
         const resultsList = document.getElementById('resultsList');
@@ -231,19 +317,15 @@
         const gender = document.getElementById('genderSelect').value;
         const wordCount = parseInt(document.getElementById('wordCountSelect').value, 10);
         
-        // Batasi maksimal generate 200 item
         let limit = parseInt(document.getElementById('limitInput').value, 10);
         if (isNaN(limit) || limit < 1) limit = 1;
         limit = Math.min(limit, 200);
 
-        // Ambil Pilihan Bahasa untuk tiap kata
         const langSelects = document.querySelectorAll('.word-lang-select');
         const selectedLanguages = Array.from(langSelects).map(select => select.value);
 
-        // Kumpulkan Pool Data Kata per Slot
         const wordPools = selectedLanguages.map(lang => getWordList(lang, gender));
 
-        // Validasi ketersediaan data kata
         for (let i = 0; i < wordPools.length; i++) {
             if (wordPools[i].length === 0) {
                 resultsList.innerHTML = `<div class="error-msg">Data nama untuk kata ke-${i + 1} (${selectedLanguages[i]}) tidak ditemukan!</div>`;
@@ -254,10 +336,8 @@
 
         const generatedSet = new Set();
         const results = [];
-
-        // Loop pembuatan kombinasi unik
         let attempts = 0;
-        const maxAttempts = limit * 15; // Cegah infinite loop
+        const maxAttempts = limit * 15;
 
         while (results.length < limit && attempts < maxAttempts) {
             attempts++;
@@ -281,7 +361,6 @@
             }
         }
 
-        // Output Render
         if (results.length === 0) {
             resultsList.innerHTML = '<div class="error-msg">Gagal mengenerate kombinasi nama.</div>';
         } else {
@@ -299,24 +378,30 @@
         resultsContainer.style.display = 'block';
     }
 
-    // Event Handling
     document.addEventListener('DOMContentLoaded', () => {
         loadVocabData();
 
         const wordCountSelect = document.getElementById('wordCountSelect');
         const generateBtn = document.getElementById('generateBtn');
+        const printBtn = document.getElementById('printBtn');
+        const pdfBtn = document.getElementById('pdfBtn');
 
-        // Render default 3 kata
         renderWordLanguageOptions(parseInt(wordCountSelect.value, 10));
 
-        // Event saat jumlah kata diubah
         wordCountSelect.addEventListener('change', (e) => {
-            const count = parseInt(e.target.value, 10);
-            renderWordLanguageOptions(count);
+            renderWordLanguageOptions(parseInt(e.target.value, 10));
         });
 
-        // Event Klik Tombol Generate
         generateBtn.addEventListener('click', generateNames);
+
+        // Fungsi Cetak / Simpan PDF
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+
+        pdfBtn.addEventListener('click', () => {
+            window.print(); // Membuka dialog print bawaan browser yang menyediakan opsi 'Save as PDF'
+        });
     });
 </script>
 
