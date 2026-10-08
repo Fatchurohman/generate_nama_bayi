@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Nama Bayi & Makna</title>
+    <title>Generator Kombinasi Nama Bayi</title>
     <style>
         * {
             box-sizing: border-box;
@@ -12,25 +12,23 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         body {
-            background-color: #f4f7f6;
+            background-color: #f0f2f5;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
         }
-        .card {
+        .container {
             background: #ffffff;
             width: 100%;
-            max-width: 480px;
-            padding: 30px;
+            max-width: 650px;
+            padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
         h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #333;
+            color: #1a202c;
         }
         .form-group {
             margin-bottom: 15px;
@@ -39,160 +37,286 @@
             display: block;
             margin-bottom: 6px;
             font-weight: 600;
-            color: #555;
+            color: #4a5568;
         }
-        select, button {
+        select, input, button {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e0;
+            font-size: 15px;
             outline: none;
         }
-        select:focus {
-            border-color: #4CAF50;
+        select:focus, input:focus {
+            border-color: #3182ce;
+        }
+        .word-config-box {
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .word-row {
+            margin-bottom: 10px;
+        }
+        .word-row:last-child {
+            margin-bottom: 0;
         }
         button {
-            background-color: #4CAF50;
+            background-color: #3182ce;
             color: white;
             font-weight: bold;
             border: none;
             cursor: pointer;
+            padding: 12px;
             margin-top: 10px;
-            transition: background 0.3s;
+            transition: background 0.2s;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #2b6cb0;
         }
-        .result-box {
+        .results-container {
             margin-top: 25px;
-            padding: 15px;
-            background-color: #eef7ee;
-            border-left: 5px solid #4CAF50;
-            border-radius: 4px;
-            text-align: center;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fafafa;
         }
-        .result-name {
-            font-size: 22px;
+        .result-item {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid #3182ce;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .result-item:last-child {
+            margin-bottom: 0;
+        }
+        .name-title {
+            font-size: 18px;
             font-weight: bold;
-            color: #2e7d32;
-            margin-bottom: 5px;
+            color: #2d3748;
         }
-        .result-meaning {
-            font-size: 15px;
-            color: #555;
-            font-style: italic;
+        .name-meaning {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 4px;
+        }
+        .error-msg {
+            color: #e53e3e;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2>Generator Nama</h2>
-    
-    <div class="form-group">
-        <label for="languageSelect">Pilih Bahasa/Kategori:</label>
-        <select id="languageSelect">
-            <option value="arab">Bahasa Arab</option>
-            <option value="jawa">Bahasa Jawa / Indonesia</option>
-            <option value="inggris">Bahasa Inggris</option>
-            <option value="yunani_eropa">Bahasa Yunani & Eropa</option>
-            <option value="unisex">Unisex (Umum)</option>
-        </select>
-    </div>
+<div class="container">
+    <h2>Generator Nama Bayi</h2>
 
-    <div class="form-group" id="genderGroup">
-        <label for="genderSelect">Pilih Jenis Kelamin:</label>
+    <!-- 1. Jenis Kelamin -->
+    <div class="form-group">
+        <label for="genderSelect">1. Jenis Kelamin:</label>
         <select id="genderSelect">
             <option value="P">Perempuan (P)</option>
             <option value="L">Laki-laki (L)</option>
         </select>
     </div>
 
-    <button id="generateBtn">Generate Nama</button>
+    <!-- 2. Jumlah Kata (Maksimal 3 Kata) -->
+    <div class="form-group">
+        <label for="wordCountSelect">2. Jumlah Kata Nama:</label>
+        <select id="wordCountSelect">
+            <option value="1">1 Kata</option>
+            <option value="2">2 Kata</option>
+            <option value="3" selected>3 Kata</option>
+        </select>
+    </div>
 
-    <div class="result-box" id="resultBox" style="display: none;">
-        <div class="result-name" id="resultName">-</div>
-        <div class="result-meaning" id="resultMeaning">-</div>
+    <!-- 3. Pilihan Bahasa Masing-Masing Kata -->
+    <div class="word-config-box">
+        <label>3. Pilihan Bahasa per Kata:</label>
+        <div id="wordLanguagesContainer">
+            <!-- Bahasa Kata Dynamic Injection -->
+        </div>
+    </div>
+
+    <!-- 4. Jumlah Generate (Maksimal 200) -->
+    <div class="form-group">
+        <label for="limitInput">4. Jumlah Nama yang Digenerate (Maks. 200):</label>
+        <input type="number" id="limitInput" value="10" min="1" max="200">
+    </div>
+
+    <button id="generateBtn">Generate Kombinasi Nama</button>
+
+    <!-- Output Hasil -->
+    <div class="results-container" id="resultsContainer" style="display: none;">
+        <div id="resultsList"></div>
     </div>
 </div>
 
 <script>
     let vocabData = null;
 
-    // Fetch data JSON saat pertama kali dimuat
+    // Fetch data JSON safe loading
     async function loadVocabData() {
         try {
             const response = await fetch('vocab.json');
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                throw new Error(`HTTP Error Status: ${response.status}`);
             }
             vocabData = await response.json();
         } catch (error) {
-            console.error('Gagal memuat file vocab.json:', error);
-            alert('Gagal memuat data nama. Pastikan file vocab.json tersedia!');
+            console.error("Gagal memuat vocab.json:", error);
+            alert("Gagal memuat file data vocab.json. Pastikan file tersedia.");
         }
     }
 
-    // Fungsi utama pencarian/pengacakan nama
-    function generateName(selectedLanguage, selectedGender) {
+    // Fungsi Render Input Bahasa per Kata
+    function renderWordLanguageOptions(count) {
+        const container = document.getElementById('wordLanguagesContainer');
+        container.innerHTML = '';
+
+        for (let i = 1; i <= count; i++) {
+            const row = document.createElement('div');
+            row.className = 'word-row';
+            row.innerHTML = `
+                <label style="font-weight: normal; font-size: 14px;">Bahasa Kata ke-${i}:</label>
+                <select class="word-lang-select" data-word-index="${i}">
+                    <option value="arab">Bahasa Arab</option>
+                    <option value="jawa">Bahasa Jawa / Indonesia</option>
+                    <option value="inggris">Bahasa Inggris</option>
+                    <option value="yunani_eropa">Bahasa Yunani & Eropa</option>
+                    <option value="unisex">Unisex (Umum)</option>
+                </select>
+            `;
+            container.appendChild(row);
+        }
+    }
+
+    // Fungsi Helper Mengambil Array Nama sesuai Gender & Bahasa
+    function getWordList(lang, gender) {
+        if (!vocabData) return [];
+        if (lang === 'unisex') {
+            return vocabData.unisex || [];
+        }
+        if (vocabData[lang] && vocabData[lang][gender]) {
+            return vocabData[lang][gender];
+        }
+        return [];
+    }
+
+    // Helper Acak Elemen Array
+    function getRandomElement(arr) {
+        if (!Array.isArray(arr) || arr.length === 0) return null;
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    // Logika Utama Generator
+    function generateNames() {
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsList = document.getElementById('resultsList');
+        resultsList.innerHTML = '';
+
         if (!vocabData) {
-            return { name: "Data belum siap", meaning: "Silakan coba lagi" };
+            resultsList.innerHTML = '<div class="error-msg">Data kata belum dimuat dengan benar.</div>';
+            resultsContainer.style.display = 'block';
+            return;
         }
 
-        let nameList = [];
+        const gender = document.getElementById('genderSelect').value;
+        const wordCount = parseInt(document.getElementById('wordCountSelect').value, 10);
+        
+        // Batasi maksimal generate 200 item
+        let limit = parseInt(document.getElementById('limitInput').value, 10);
+        if (isNaN(limit) || limit < 1) limit = 1;
+        limit = Math.min(limit, 200);
 
-        try {
-            if (selectedLanguage === 'unisex') {
-                nameList = vocabData.unisex || [];
-            } else if (vocabData[selectedLanguage] && vocabData[selectedLanguage][selectedGender]) {
-                nameList = vocabData[selectedLanguage][selectedGender];
+        // Ambil Pilihan Bahasa untuk tiap kata
+        const langSelects = document.querySelectorAll('.word-lang-select');
+        const selectedLanguages = Array.from(langSelects).map(select => select.value);
+
+        // Kumpulkan Pool Data Kata per Slot
+        const wordPools = selectedLanguages.map(lang => getWordList(lang, gender));
+
+        // Validasi ketersediaan data kata
+        for (let i = 0; i < wordPools.length; i++) {
+            if (wordPools[i].length === 0) {
+                resultsList.innerHTML = `<div class="error-msg">Data nama untuk kata ke-${i + 1} (${selectedLanguages[i]}) tidak ditemukan!</div>`;
+                resultsContainer.style.display = 'block';
+                return;
             }
-
-            if (!Array.isArray(nameList) || nameList.length === 0) {
-                return { name: "Nama tidak ditemukan", meaning: "Pilihan kategori tidak memiliki data" };
-            }
-
-            const randomIndex = Math.floor(Math.random() * nameList.length);
-            return nameList[randomIndex] || { name: "Nama tidak valid", meaning: "-" };
-
-        } catch (error) {
-            console.error("Error generating name:", error);
-            return { name: "Terjadi kesalahan", meaning: "Gagal memproses data" };
         }
+
+        const generatedSet = new Set();
+        const results = [];
+
+        // Loop pembuatan kombinasi unik
+        let attempts = 0;
+        const maxAttempts = limit * 15; // Cegah infinite loop
+
+        while (results.length < limit && attempts < maxAttempts) {
+            attempts++;
+            let nameParts = [];
+            let meaningParts = [];
+
+            for (let i = 0; i < wordCount; i++) {
+                const item = getRandomElement(wordPools[i]);
+                if (item) {
+                    nameParts.push(item.name || '');
+                    meaningParts.push(item.meaning || '');
+                }
+            }
+
+            const fullName = nameParts.join(' ').trim();
+            const fullMeaning = meaningParts.join('; ').trim();
+
+            if (fullName && !generatedSet.has(fullName)) {
+                generatedSet.add(fullName);
+                results.push({ name: fullName, meaning: fullMeaning });
+            }
+        }
+
+        // Output Render
+        if (results.length === 0) {
+            resultsList.innerHTML = '<div class="error-msg">Gagal mengenerate kombinasi nama.</div>';
+        } else {
+            results.forEach((item, index) => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'result-item';
+                itemEl.innerHTML = `
+                    <div class="name-title">${index + 1}. ${item.name}</div>
+                    <div class="name-meaning">${item.meaning ? `"${item.meaning}"` : '-'}</div>
+                `;
+                resultsList.appendChild(itemEl);
+            });
+        }
+
+        resultsContainer.style.display = 'block';
     }
 
-    // Event Listener DOM
+    // Event Handling
     document.addEventListener('DOMContentLoaded', () => {
         loadVocabData();
 
-        const languageSelect = document.getElementById('languageSelect');
-        const genderGroup = document.getElementById('genderGroup');
+        const wordCountSelect = document.getElementById('wordCountSelect');
         const generateBtn = document.getElementById('generateBtn');
-        const resultBox = document.getElementById('resultBox');
-        const resultName = document.getElementById('resultName');
-        const resultMeaning = document.getElementById('resultMeaning');
 
-        // Sembunyikan opsi gender jika kategori Unisex dipilih
-        languageSelect.addEventListener('change', () => {
-            if (languageSelect.value === 'unisex') {
-                genderGroup.style.display = 'none';
-            } else {
-                genderGroup.style.display = 'block';
-            }
+        // Render default 3 kata
+        renderWordLanguageOptions(parseInt(wordCountSelect.value, 10));
+
+        // Event saat jumlah kata diubah
+        wordCountSelect.addEventListener('change', (e) => {
+            const count = parseInt(e.target.value, 10);
+            renderWordLanguageOptions(count);
         });
 
         // Event Klik Tombol Generate
-        generateBtn.addEventListener('click', () => {
-            const lang = languageSelect.value;
-            const gender = document.getElementById('genderSelect').value;
-
-            const result = generateName(lang, gender);
-
-            resultName.textContent = result.name || "-";
-            resultMeaning.textContent = result.meaning ? `"${result.meaning}"` : "-";
-            resultBox.style.display = 'block';
-        });
+        generateBtn.addEventListener('click', generateNames);
     });
 </script>
 
