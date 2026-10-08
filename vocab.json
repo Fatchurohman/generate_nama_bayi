@@ -124,7 +124,8 @@
     { "prefix": "Al-", "suffix": "", "meaningAdd": "terutama", "lang": "Arab", "gender": "U" },
     { "prefix": "", "suffix": "uddin", "meaningAdd": "pembela agama", "lang": "Arab", "gender": "L" },
     { "prefix": "", "suffix": "ullah", "meaningAdd": "karunia Allah", "lang": "Arab", "gender": "L" },
-    { "prefix": "", "suffix": "i", "meaningAdd": "bersifat", "lang": "Arab", "gender": "U" },
+    { "prefix": "", "suffix": "i", "meaningAdd": "yang bersifat", "lang": "Arab", "gender": "L" },
+    { "prefix": "", "suffix": "atul", "meaningAdd": "pembawa", "lang": "Arab", "gender": "P" },
     { "prefix": "", "suffix": "a", "meaningAdd": "keindahan", "lang": "Indonesia", "gender": "P" },
     { "prefix": "", "suffix": "o", "meaningAdd": "pelindung", "lang": "Italia", "gender": "L" }
   ]
