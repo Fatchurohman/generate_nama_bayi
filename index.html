@@ -407,23 +407,28 @@
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        vocabData = await response.json();
         
-        if (!vocabData || !vocabData.baseVocab || !vocabData.modifiers) {
-          throw new Error("Format JSON tidak valid.");
+        const data = await response.json();
+        
+        // Validasi struktur JSON aman
+        if (!data || typeof data !== 'object' || !data.baseVocab || typeof data.baseVocab !== 'object') {
+          throw new Error("Format JSON tidak valid atau struktur data tidak sesuai.");
         }
 
+        vocabData = data;
         renderLanguageFilters();
         applyFilters();
       } catch (error) {
         console.error("Gagal memuat JSON:", error);
-        document.getElementById('resultCountText').innerText = "Gagal memuat data kosakata. Pastikan file vocab.json tersedia.";
+        document.getElementById('resultCountText').innerText = "Gagal memuat data kosakata. Pastikan file vocab.json tersedia dan valid.";
       }
     }
 
     function renderLanguageFilters() {
-      const count = parseInt(document.getElementById('wordCount').value, 10);
+      const count = parseInt(document.getElementById('wordCount').value, 10) || 2;
       const container = document.getElementById('languageFilters');
+      if (!container) return;
+      
       container.innerHTML = '';
 
       for (let i = 1; i <= count; i++) {
@@ -438,8 +443,8 @@
       }
     }
 
-    // Helper: Acak Array menggunakan Fisher-Yates Shuffle
     function shuffleArray(array) {
+      if (!Array.isArray(array)) return [];
       const arr = [...array];
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -448,39 +453,41 @@
       return arr;
     }
 
-    // Algoritma Cepat & Anti-Pengulangan Kata
     function generateNamesFromVocab(targetWordCount, selectedLangs, limitCount) {
-      if (!vocabData) return [];
+      if (!vocabData || !vocabData.baseVocab) return [];
 
       const results = [];
       const usedFullNames = new Set();
       const baseVocab = vocabData.baseVocab;
-      const modifiers = vocabData.modifiers;
+      const modifiers = Array.isArray(vocabData.modifiers) ? vocabData.modifiers : [];
 
       let safetyAttempts = 0;
-      const maxAttempts = limitCount * 10;
+      const maxAttempts = limitCount * 15;
 
       while (results.length < limitCount && safetyAttempts < maxAttempts) {
         safetyAttempts++;
         const currentCombo = [];
-        const usedWordsInSingleName = new Set(); // Mencegah kata berulang dalam 1 nama (misal: "Muhammad Muhammad")
+        const usedWordsInSingleName = new Set();
 
         let isValidCombo = true;
 
         for (let pos = 0; pos < targetWordCount; pos++) {
-          const langReq = selectedLangs[pos];
+          const langReq = selectedLangs[pos] || "Semua";
           const activeLang = (langReq === "Semua") 
             ? selectableLanguages[Math.floor(Math.random() * selectableLanguages.length)]
             : langReq;
 
-          const list = baseVocab[activeLang] || baseVocab["Arab"];
+          const list = baseVocab[activeLang];
+          if (!Array.isArray(list) || list.length === 0) {
+            isValidCombo = false;
+            break;
+          }
           
-          // Pilih kata acak yang belum dipakai di rangkaian kata nama ini
           let baseObj = null;
           const shuffledList = shuffleArray(list);
           
           for (const candidate of shuffledList) {
-            if (!usedWordsInSingleName.has(candidate.text.toLowerCase())) {
+            if (candidate && candidate.text && !usedWordsInSingleName.has(candidate.text.toLowerCase())) {
               baseObj = candidate;
               break;
             }
@@ -493,9 +500,18 @@
 
           usedWordsInSingleName.add(baseObj.text.toLowerCase());
 
-          const modObj = modifiers[Math.floor(Math.random() * modifiers.length)];
-          const wordText = `${modObj.prefix}${baseObj.text}${modObj.suffix}`;
-          const meaningText = modObj.meaningAdd ? `${baseObj.meaning} (${modObj.meaningAdd})` : baseObj.meaning;
+          // Filter modifier yang cocok dengan bahasa aktif (mencegah "Arthuruddin")
+          const validModifiers = modifiers.filter(m => !m.lang || m.lang === "all" || m.lang === activeLang);
+          const modObj = validModifiers.length > 0 
+            ? validModifiers[Math.floor(Math.random() * validModifiers.length)]
+            : { prefix: "", suffix: "", meaningAdd: "" };
+
+          const prefix = modObj.prefix || "";
+          const suffix = modObj.suffix || "";
+          const wordText = `${prefix}${baseObj.text}${suffix}`;
+          
+          const meaningAdd = modObj.meaningAdd ? ` (${modObj.meaningAdd})` : "";
+          const meaningText = `${baseObj.meaning || ''}${meaningAdd}`;
 
           currentCombo.push({
             text: wordText,
@@ -508,7 +524,6 @@
           const fullName = currentCombo.map(w => w.text).join(' ');
           const fullNameKey = fullName.toLowerCase();
 
-          // Mencegah Nama Lengkap Kembar di Hasil Tampilan
           if (!usedFullNames.has(fullNameKey)) {
             usedFullNames.add(fullNameKey);
             const meaningsStr = currentCombo.map(w => w.meaning.toLowerCase()).join(', ');
@@ -530,8 +545,9 @@
     function applyFilters() {
       if (!vocabData) return;
 
-      const targetWordCount = parseInt(document.getElementById('wordCount').value, 10);
-      const limitCount = parseInt(document.getElementById('limitCount').value, 10) || 50;
+      const targetWordCount = parseInt(document.getElementById('wordCount').value, 10) || 2;
+      const limitInput = parseInt(document.getElementById('limitCount').value, 10);
+      const limitCount = isNaN(limitInput) || limitInput < 1 ? 50 : Math.min(limitInput, 1000);
       
       const selectedLangs = [];
       for (let i = 1; i <= targetWordCount; i++) {
@@ -546,11 +562,12 @@
     function renderResults(data) {
       const grid = document.getElementById('nameGrid');
       const countText = document.getElementById('resultCountText');
-      grid.innerHTML = '';
+      if (!grid || !countText) return;
 
+      grid.innerHTML = '';
       countText.innerText = `Menampilkan ${data.length} alternatif nama`;
 
-      if (data.length === 0) {
+      if (!Array.isArray(data) || data.length === 0) {
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding:30px;">Tidak ada kombinasi nama yang cocok.</div>`;
         return;
       }
@@ -577,36 +594,41 @@
     function openModal(item) {
       if (!item) return;
 
-      document.getElementById('modalName').innerText = item.fullName || '';
-      
+      const modalName = document.getElementById('modalName');
       const breakdownContainer = document.getElementById('modalBreakdown');
-      breakdownContainer.innerHTML = '';
+      const modalMeaning = document.getElementById('modalMeaning');
+      const detailModal = document.getElementById('detailModal');
 
-      if (Array.isArray(item.words)) {
-        item.words.forEach((w, index) => {
-          const div = document.createElement('div');
-          div.className = 'word-item';
-          div.innerHTML = `Kata ${index + 1} (<strong>${escapeHtml(w.lang || '')}</strong>): <em>"${escapeHtml(w.text || '')}"</em> - ${escapeHtml(w.meaning || '')}`;
-          breakdownContainer.appendChild(div);
-        });
+      if (modalName) modalName.innerText = item.fullName || '';
+      if (breakdownContainer) {
+        breakdownContainer.innerHTML = '';
+        if (Array.isArray(item.words)) {
+          item.words.forEach((w, index) => {
+            const div = document.createElement('div');
+            div.className = 'word-item';
+            div.innerHTML = `Kata ${index + 1} (<strong>${escapeHtml(w.lang || '')}</strong>): <em>"${escapeHtml(w.text || '')}"</em> - ${escapeHtml(w.meaning || '')}`;
+            breakdownContainer.appendChild(div);
+          });
+        }
       }
 
-      document.getElementById('modalMeaning').innerText = `Doa & Harapan: "${item.fullMeaning || '-'}"`;
-      document.getElementById('detailModal').classList.add('active');
+      if (modalMeaning) modalMeaning.innerText = `Doa & Harapan: "${item.fullMeaning || '-'}"`;
+      if (detailModal) detailModal.classList.add('active');
     }
 
     function closeModal() {
-      document.getElementById('detailModal').classList.remove('active');
+      const detailModal = document.getElementById('detailModal');
+      if (detailModal) detailModal.classList.remove('active');
     }
 
     function closeModalOnOverlay(e) {
-      if (e.target.id === 'detailModal') {
+      if (e.target && e.target.id === 'detailModal') {
         closeModal();
       }
     }
 
     function escapeHtml(str) {
-      return String(str)
+      return String(str || '')
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
