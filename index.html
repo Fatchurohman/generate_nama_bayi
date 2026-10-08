@@ -284,22 +284,24 @@
     let vocabData = null;
 
     // Real-Time Hitungan Kunjungan via CountAPI
-    async function updateVisitCount() {
-        const visitCountEl = document.getElementById('visitCount');
-        try {
-            // Menggunakan namespace unik 'generate-nama-bayi-fatur62'
-            const res = await fetch('https://api.countapi.xyz/hit/generate-nama-bayi-fatur62/visits');
-            if (res.ok) {
-                const data = await res.json();
-                visitCountEl.textContent = data.value.toLocaleString('id-ID');
-            } else {
-                visitCountEl.textContent = "1+";
-            }
-        } catch (err) {
-            console.error("Gagal memperbarui hitungan kunjungan:", err);
-            visitCountEl.textContent = "Offline";
+    // Real-Time Hitungan Kunjungan via CounterAPI (Stabil & Gratis)
+async function updateVisitCount() {
+    const visitCountEl = document.getElementById('visitCount');
+    try {
+        // Menggunakan namespace & key unik kanggo aplikasi iki
+        const res = await fetch('https://api.counterapi.dev/v1/generate-nama-bayi-fatur62/visits/up');
+        if (res.ok) {
+            const data = await res.json();
+            visitCountEl.textContent = data.count.toLocaleString('id-ID');
+        } else {
+            // Yen namespace durung keganti/perlu fallback angka default
+            visitCountEl.textContent = "1";
         }
+    } catch (err) {
+        console.error("Gagal memperbarui hitungan kunjungan:", err);
+        visitCountEl.textContent = "1";
     }
+}
 
     async function loadVocabData() {
         try {
