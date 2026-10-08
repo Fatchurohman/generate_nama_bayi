@@ -12,36 +12,82 @@
             font-family: 'Georgia', 'Segoe UI', serif;
         }
         body {
-            background: linear-gradient(135deg, #072215 0%, #0b3b24 50%, #051a10 100%);
+            background: linear-gradient(135deg, #051e12 0%, #0b3b24 50%, #03140c 100%);
             min-height: 100vh;
             padding: 30px 15px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
-            color: #222;
+            color: #f0f0f0;
         }
         .container {
-            background: #ffffff;
+            background: linear-gradient(180deg, #09331f 0%, #062416 100%);
             width: 100%;
             max-width: 680px;
             padding: 35px;
             border-radius: 16px;
             border: 2px solid #d4af37;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7), 0 0 15px rgba(212, 175, 55, 0.25);
             position: relative;
         }
-        h2 {
+
+        /* Header & Identitas Developer */
+        .header-section {
             text-align: center;
             margin-bottom: 25px;
-            color: #0b3b24;
+        }
+        h2 {
+            color: #ffd700;
             font-size: 28px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            background: linear-gradient(45deg, #0b3b24, #1a5c3d, #aa771c);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
             font-weight: bold;
+            margin-bottom: 8px;
         }
+        .developer-tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            font-size: 13px;
+            color: #d4af37;
+            letter-spacing: 0.5px;
+        }
+        .blinking-dot {
+            width: 9px;
+            height: 9px;
+            background-color: #00ff66;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #00ff66;
+            animation: pulse-glow 1.2s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 12px #00ff66; }
+            100% { opacity: 0.2; transform: scale(0.8); }
+        }
+
+        /* Counter Kunjungan */
+        .visit-counter {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #a3c2b0;
+            background: rgba(11, 59, 36, 0.6);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px dashed #d4af37;
+        }
+        .visit-count-number {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
         .form-group {
             margin-bottom: 18px;
         }
@@ -49,27 +95,28 @@
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
-            color: #0b3b24;
-            font-size: 15px;
+            color: #ffd700;
+            font-size: 14px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
         select, input {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #d4af37;
-            background-color: #fcfbf7;
+            background-color: #041a10;
             font-size: 15px;
-            color: #1a1a1a;
+            color: #ffffff;
             outline: none;
             transition: all 0.3s ease;
         }
         select:focus, input:focus {
-            border-color: #aa771c;
-            box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+            border-color: #ffd700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
         }
         .word-config-box {
-            background: #f4f8f5;
-            border: 1px solid #c2a34b;
+            background: #052617;
+            border: 1px solid #d4af37;
             padding: 18px;
             border-radius: 10px;
             margin-bottom: 20px;
@@ -80,60 +127,59 @@
         .word-row:last-child {
             margin-bottom: 0;
         }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        button {
+
+        /* Tombol 3D Emas Batangan (Gold Bar) */
+        .btn-gold-3d {
             width: 100%;
             padding: 14px;
             border-radius: 8px;
-            border: none;
+            border: 1px solid #ffe680;
             font-weight: bold;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            color: #2b1a00;
+            background: linear-gradient(180deg, #ffe57f 0%, #d4af37 45%, #aa771c 80%, #7a520c 100%);
+            box-shadow: 0 5px 0 #4a3206, 0 8px 15px rgba(0, 0, 0, 0.6);
+            position: relative;
+            transition: all 0.1s ease;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
         }
-        .btn-generate {
-            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #aa771c 100%);
-            color: #0b3b24;
-            box-shadow: 0 4px 12px rgba(170, 119, 28, 0.3);
+        .btn-gold-3d:hover {
+            background: linear-gradient(180deg, #fff0b3 0%, #e6c200 45%, #c48b21 80%, #8c5e0e 100%);
+            box-shadow: 0 6px 0 #4a3206, 0 10px 18px rgba(212, 175, 55, 0.4);
         }
-        .btn-generate:hover {
-            background: linear-gradient(135deg, #aa771c 0%, #d4af37 50%, #ffd700 100%);
-            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.5);
+        .btn-gold-3d:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #4a3206, 0 3px 6px rgba(0, 0, 0, 0.4);
         }
-        .btn-action {
-            background: #0b3b24;
-            color: #ffd700;
-            border: 1px solid #d4af37;
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
         }
-        .btn-action:hover {
-            background: #134e35;
-            color: #ffffff;
-        }
+
         .results-container {
             margin-top: 30px;
             border: 2px solid #d4af37;
             border-radius: 10px;
-            padding: 15px;
-            background: #fdfdfa;
+            padding: 18px;
+            background: #041a10;
             max-height: 450px;
             overflow-y: auto;
         }
         .result-item {
-            background: #ffffff;
+            background: #0a2d1c;
             padding: 14px;
             border-radius: 8px;
             margin-bottom: 12px;
-            border-left: 5px solid #0b3b24;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            border-right: 1px solid #eee;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
+            border-left: 5px solid #ffd700;
+            border-top: 1px solid #134e35;
+            border-right: 1px solid #134e35;
+            border-bottom: 1px solid #134e35;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
         }
         .result-item:last-child {
             margin-bottom: 0;
@@ -141,60 +187,32 @@
         .name-title {
             font-size: 18px;
             font-weight: bold;
-            color: #0b3b24;
+            color: #ffd700;
         }
         .name-meaning {
             font-size: 14px;
-            color: #555;
+            color: #d0e3d8;
             margin-top: 5px;
             font-style: italic;
         }
         .error-msg {
-            color: #c53030;
+            color: #ff6b6b;
             text-align: center;
             padding: 10px;
         }
 
-        /* Styling Khusus Cetak & Simpan PDF */
+        /* Responsive & Print Styling */
         @media print {
-            body {
-                background: none;
-                color: #000;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-                border: none;
-                max-width: 100%;
-                width: 100%;
-                padding: 0;
-            }
-            .form-group, .word-config-box, .btn-group, #generateBtn, h2 {
-                display: none !important;
-            }
-            .results-container {
-                max-height: none;
-                overflow: visible;
-                border: none;
-                padding: 0;
-            }
-            .print-header {
-                display: block !important;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .print-header h1 {
-                color: #0b3b24;
-                font-size: 24px;
-            }
-            .result-item {
-                border-left: 3px solid #0b3b24;
-                page-break-inside: avoid;
-            }
+            body { background: #ffffff; color: #000000; padding: 0; }
+            .container { box-shadow: none; border: none; max-width: 100%; width: 100%; padding: 0; background: #ffffff; }
+            .form-group, .word-config-box, .btn-group, .btn-gold-3d, .visit-counter { display: none !important; }
+            .results-container { max-height: none; overflow: visible; border: none; padding: 0; background: #ffffff; }
+            .result-item { background: #ffffff; border-left: 4px solid #000; border-top: 1px solid #ccc; border-right: 1px solid #ccc; border-bottom: 1px solid #ccc; page-break-inside: avoid; }
+            .name-title { color: #000000; }
+            .name-meaning { color: #333333; }
+            .print-header { display: block !important; text-align: center; margin-bottom: 20px; color: #000; }
         }
-        .print-header {
-            display: none;
-        }
+        .print-header { display: none; }
     </style>
 </head>
 <body>
@@ -202,10 +220,22 @@
 <div class="container">
     <div class="print-header">
         <h1>Daftar Rekomendasi Nama Bayi</h1>
-        <hr style="margin-top: 10px; border: 1px solid #d4af37;">
+        <p style="font-size: 12px; margin-top: 4px;">Developer: fatur62</p>
+        <hr style="margin-top: 10px; border: 1px solid #000;">
     </div>
 
-    <h2>Generator Nama Bayi</h2>
+    <div class="header-section">
+        <h2>Generator Nama Bayi</h2>
+        <div class="developer-tag">
+            <span class="blinking-dot"></span>
+            <span>developer : fatur62</span>
+        </div>
+    </div>
+
+    <!-- Live Visit Counter -->
+    <div class="visit-counter">
+        Total Kunjungan Aplikasi: <span class="visit-count-number" id="visitCount">Memuat...</span> kali
+    </div>
 
     <!-- 1. Jenis Kelamin -->
     <div class="form-group">
@@ -238,13 +268,13 @@
         <input type="number" id="limitInput" value="10" min="1" max="200">
     </div>
 
-    <button id="generateBtn" class="btn-generate">Generate Kombinasi Nama</button>
+    <button id="generateBtn" class="btn-gold-3d">Generate Kombinasi Nama</button>
 
-    <!-- Output Hasil & Aksi Cetak/PDF -->
+    <!-- Output Hasil & Tombol Aksi -->
     <div class="results-container" id="resultsContainer" style="display: none;">
         <div class="btn-group" style="margin-bottom: 15px; margin-top: 0;">
-            <button id="printBtn" class="btn-action">Cetak Hasil</button>
-            <button id="pdfBtn" class="btn-action">Simpan PDF</button>
+            <button id="printBtn" class="btn-gold-3d" style="font-size: 14px; padding: 10px;">Cetak Hasil</button>
+            <button id="pdfBtn" class="btn-gold-3d" style="font-size: 14px; padding: 10px;">Simpan PDF</button>
         </div>
         <div id="resultsList"></div>
     </div>
@@ -252,6 +282,24 @@
 
 <script>
     let vocabData = null;
+
+    // Real-Time Hitungan Kunjungan via CountAPI
+    async function updateVisitCount() {
+        const visitCountEl = document.getElementById('visitCount');
+        try {
+            // Menggunakan namespace unik 'generate-nama-bayi-fatur62'
+            const res = await fetch('https://api.countapi.xyz/hit/generate-nama-bayi-fatur62/visits');
+            if (res.ok) {
+                const data = await res.json();
+                visitCountEl.textContent = data.value.toLocaleString('id-ID');
+            } else {
+                visitCountEl.textContent = "1+";
+            }
+        } catch (err) {
+            console.error("Gagal memperbarui hitungan kunjungan:", err);
+            visitCountEl.textContent = "Offline";
+        }
+    }
 
     async function loadVocabData() {
         try {
@@ -274,7 +322,7 @@
             const row = document.createElement('div');
             row.className = 'word-row';
             row.innerHTML = `
-                <label style="font-weight: normal; font-size: 14px;">Bahasa Kata ke-${i}:</label>
+                <label style="font-weight: normal; font-size: 13px; color: #d0e3d8;">Bahasa Kata ke-${i}:</label>
                 <select class="word-lang-select" data-word-index="${i}">
                     <option value="arab">Bahasa Arab</option>
                     <option value="jawa">Bahasa Jawa / Indonesia</option>
@@ -380,6 +428,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         loadVocabData();
+        updateVisitCount();
 
         const wordCountSelect = document.getElementById('wordCountSelect');
         const generateBtn = document.getElementById('generateBtn');
@@ -394,13 +443,12 @@
 
         generateBtn.addEventListener('click', generateNames);
 
-        // Fungsi Cetak / Simpan PDF
         printBtn.addEventListener('click', () => {
             window.print();
         });
 
         pdfBtn.addEventListener('click', () => {
-            window.print(); // Membuka dialog print bawaan browser yang menyediakan opsi 'Save as PDF'
+            window.print();
         });
     });
 </script>
