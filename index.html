@@ -531,10 +531,16 @@
             ? validModifiers[Math.floor(Math.random() * validModifiers.length)]
             : { prefix: "", suffix: "", meaningAdd: "" };
 
+          let baseText = baseObj.text || "";
           const prefix = modObj.prefix || "";
           const suffix = modObj.suffix || "";
-          const wordText = `${prefix}${baseObj.text}${suffix}`;
-          
+
+          // Penyesuaian tata bahasa: Jika kata berakhiran 'ah' (misal: Rahmah) ketemu suffix 'atul', diubah jadi 'Rahmatul'
+          if (suffix === "atul" && baseText.toLowerCase().endsWith("ah")) {
+            baseText = baseText.slice(0, -2) + "t";
+          }
+
+          const wordText = `${prefix}${baseText}${suffix}`;
           const meaningAdd = modObj.meaningAdd ? ` (${modObj.meaningAdd})` : "";
           const meaningText = `${baseObj.meaning || ''}${meaningAdd}`;
 
