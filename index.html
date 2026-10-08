@@ -355,7 +355,16 @@
   <div class="main-container">
     <div class="filter-card">
       <div class="filter-group">
-        <label for="wordCount">1. Jumlah Kata (1 - 4 Kata)</label>
+        <label for="genderSelect">1. Jenis Kelamin</label>
+        <select id="genderSelect">
+          <option value="Semua" selected>Semua (Laki-laki & Perempuan)</option>
+          <option value="L">Laki-laki</option>
+          <option value="P">Perempuan</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="wordCount">2. Jumlah Kata (1 - 4 Kata)</label>
         <select id="wordCount" onchange="renderLanguageFilters()">
           <option value="1">1 Kata</option>
           <option value="2" selected>2 Kata</option>
@@ -365,12 +374,12 @@
       </div>
 
       <div class="filter-group">
-        <label>2. Kombinasi Bahasa per Posisi Kata</label>
+        <label>3. Kombinasi Bahasa per Posisi Kata</label>
         <div id="languageFilters" class="lang-position-grid"></div>
       </div>
 
       <div class="filter-group">
-        <label for="limitCount">3. Maksimal Alternatif Ditampilkan (Maks. 1000)</label>
+        <label for="limitCount">4. Maksimal Alternatif Ditampilkan (Maks. 1000)</label>
         <input type="number" id="limitCount" min="1" max="1000" value="50">
       </div>
 
@@ -410,7 +419,6 @@
         
         const data = await response.json();
         
-        // Validasi struktur JSON aman
         if (!data || typeof data !== 'object' || !data.baseVocab || typeof data.baseVocab !== 'object') {
           throw new Error("Format JSON tidak valid atau struktur data tidak sesuai.");
         }
@@ -453,7 +461,7 @@
       return arr;
     }
 
-    function generateNamesFromVocab(targetWordCount, selectedLangs, limitCount) {
+    function generateNamesFromVocab(selectedGender, targetWordCount, selectedLangs, limitCount) {
       if (!vocabData || !vocabData.baseVocab) return [];
 
       const results = [];
@@ -462,7 +470,7 @@
       const modifiers = Array.isArray(vocabData.modifiers) ? vocabData.modifiers : [];
 
       let safetyAttempts = 0;
-      const maxAttempts = limitCount * 15;
+      const maxAttempts = limitCount * 20;
 
       while (results.length < limitCount && safetyAttempts < maxAttempts) {
         safetyAttempts++;
@@ -477,14 +485,26 @@
             ? selectableLanguages[Math.floor(Math.random() * selectableLanguages.length)]
             : langReq;
 
-          const list = baseVocab[activeLang];
-          if (!Array.isArray(list) || list.length === 0) {
+          const rawList = baseVocab[activeLang];
+          if (!Array.isArray(rawList) || rawList.length === 0) {
             isValidCombo = false;
             break;
           }
           
+          // Filter berdasarkan gender
+          const filteredList = rawList.filter(item => {
+            if (!item || !item.text) return false;
+            const itemGender = item.gender || "U";
+            return selectedGender === "Semua" || itemGender === "U" || itemGender === selectedGender;
+          });
+
+          if (filteredList.length === 0) {
+            isValidCombo = false;
+            break;
+          }
+
           let baseObj = null;
-          const shuffledList = shuffleArray(list);
+          const shuffledList = shuffleArray(filteredList);
           
           for (const candidate of shuffledList) {
             if (candidate && candidate.text && !usedWordsInSingleName.has(candidate.text.toLowerCase())) {
@@ -500,8 +520,13 @@
 
           usedWordsInSingleName.add(baseObj.text.toLowerCase());
 
-          // Filter modifier yang cocok dengan bahasa aktif (mencegah "Arthuruddin")
-          const validModifiers = modifiers.filter(m => !m.lang || m.lang === "all" || m.lang === activeLang);
+          // Filter modifier yang cocok dengan bahasa dan gender
+          const validModifiers = modifiers.filter(m => {
+            const langMatch = !m.lang || m.lang === "all" || m.lang === activeLang;
+            const genderMatch = !m.gender || m.gender === "U" || selectedGender === "Semua" || m.gender === selectedGender;
+            return langMatch && genderMatch;
+          });
+
           const modObj = validModifiers.length > 0 
             ? validModifiers[Math.floor(Math.random() * validModifiers.length)]
             : { prefix: "", suffix: "", meaningAdd: "" };
@@ -545,6 +570,7 @@
     function applyFilters() {
       if (!vocabData) return;
 
+      const selectedGender = document.getElementById('genderSelect').value || "Semua";
       const targetWordCount = parseInt(document.getElementById('wordCount').value, 10) || 2;
       const limitInput = parseInt(document.getElementById('limitCount').value, 10);
       const limitCount = isNaN(limitInput) || limitInput < 1 ? 50 : Math.min(limitInput, 1000);
@@ -555,7 +581,7 @@
         selectedLangs.push(select ? select.value : "Semua");
       }
 
-      const generatedData = generateNamesFromVocab(targetWordCount, selectedLangs, limitCount);
+      const generatedData = generateNamesFromVocab(selectedGender, targetWordCount, selectedLangs, limitCount);
       renderResults(generatedData);
     }
 
