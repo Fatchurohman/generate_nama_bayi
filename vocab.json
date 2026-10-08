@@ -115,13 +115,12 @@
     ]
   },
   "modifiers": [
-    { "prefix": "", "suffix": "", "meaningAdd": "" },
-    { "prefix": "Al-", "suffix": "", "meaningAdd": "terutama" },
-    { "prefix": "", "suffix": "i", "meaningAdd": "bersifat" },
-    { "prefix": "", "suffix": "a", "meaningAdd": "keindahan" },
-    { "prefix": "", "suffix": "uddin", "meaningAdd": "pembela agama" },
-    { "prefix": "", "suffix": "ullah", "meaningAdd": "karunia Allah" },
-    { "prefix": "", "suffix": "is", "meaningAdd": "karisma" },
-    { "prefix": "", "suffix": "o", "meaningAdd": "pelindung" }
+    { "prefix": "", "suffix": "", "meaningAdd": "", "lang": "all" },
+    { "prefix": "Al-", "suffix": "", "meaningAdd": "terutama", "lang": "Arab" },
+    { "prefix": "", "suffix": "uddin", "meaningAdd": "pembela agama", "lang": "Arab" },
+    { "prefix": "", "suffix": "ullah", "meaningAdd": "karunia Allah", "lang": "Arab" },
+    { "prefix": "", "suffix": "i", "meaningAdd": "bersifat", "lang": "Arab" },
+    { "prefix": "", "suffix": "a", "meaningAdd": "keindahan", "lang": "Indonesia" },
+    { "prefix": "", "suffix": "o", "meaningAdd": "pelindung", "lang": "Italia" }
   ]
 }
